@@ -8,6 +8,150 @@ export const CATALOG_PHASES: Phase[] = [
     iconName: "Cpu",
     categories: [
       {
+        id: "installation-mode",
+        name: "Installation Mode",
+        shortDesc: "Choose your setup path and archinstall profile context",
+        detailedDesc: "Mode 2 (Minimal) is the recommended clean canvas. Mode 1 is for post-install additions on top of an existing desktop. Mode 3 replaces a DE, and Mode 4 is tailored for ancient legacy hardware.",
+        iconName: "Compass",
+        phaseId: "base",
+        selectionType: "single",
+        optional: false,
+        packages: [
+          {
+            id: "mode-2-minimal-recommended",
+            name: "Mode 2: Minimal Base + SimpleArch (Recommended)",
+            packageName: "minimal-base",
+            source: "repo",
+            description: "Official archinstall with the Minimal profile. SimpleArch manages GPU drivers, compositor, modular shell daemons, and baseline dotfiles without conflicts.",
+            pros: ["Zero package collisions or pre-installed bloat", "Complete control over GPU driver stack and Wayland engine", "Non-destructive dotfile backups with .bak extensions"],
+            cons: ["Requires post-install script run on first reboot into Arch"],
+            stabilityScore: 10,
+            tags: ["recommended", "clean-slate", "verified"],
+            recommended: true,
+            isOmarchyDefault: true
+          },
+          {
+            id: "mode-1-desktop-postinstall",
+            name: "Mode 1: Desktop Profile Post-Install",
+            packageName: "desktop-postinstall",
+            source: "repo",
+            description: "For systems where 'Desktop' (e.g. GNOME, KDE, or Hyprland) was chosen during archinstall. SimpleArch only adds ricing enhancements, dev tools, and utilities.",
+            pros: ["Boot directly into a working desktop before running script", "Preserves existing desktop settings"],
+            cons: ["May result in duplicate utilities (e.g. multiple terminals or launchers)"],
+            stabilityScore: 9,
+            tags: ["existing-desktop", "standard"]
+          },
+          {
+            id: "mode-3-replace-existing",
+            name: "Mode 3: Replace Existing Profile Choices",
+            packageName: "replace-existing",
+            source: "repo",
+            description: "Replaces an already installed desktop profile. Deactivates conflicting display managers and deploys the selected SimpleArch stack.",
+            pros: ["Saves time compared to full disk re-partitioning and reinstallation"],
+            cons: ["Risk of leftover orphan config files", "May require manual cleanup of old display managers"],
+            stabilityScore: 7,
+            tags: ["destructive-swap", "advanced"],
+            recommended: false
+          },
+          {
+            id: "mode-4-ancient-hardware",
+            name: "Mode 4: Ancient Hardware Mode",
+            packageName: "ancient-hardware",
+            source: "repo",
+            description: "Tailored for legacy dual-core CPUs (Core 2 Duo / Pentium), non-Vulkan iGPUs, and low RAM (<=4GB). Recommends pure X11, lz4 zram, and lightweight tools.",
+            pros: ["Smooth performance on 10-15 year old machines", "Sub-200MB idle RAM footprint", "Zero GPU compositing overhead"],
+            cons: ["No Wayland features (touchpad gestures, fractional scaling)", "Simpler retro aesthetics"],
+            stabilityScore: 9,
+            tags: ["old-hardware-friendly", "legacy", "verified", "minimal-memory"],
+            hardwareRequirements: {
+              ancient_hardware_friendly: true,
+              gpu_compositing_required: false
+            }
+          }
+        ]
+      },
+      {
+        id: "gpu-driver",
+        name: "GPU Graphics Drivers",
+        shortDesc: "Essential graphics drivers (Required for archinstall Minimal profile)",
+        detailedDesc: "Because archinstall's Minimal profile does not include GPU drivers, you must select your hardware driver here so your display server or Wayland compositor can render.",
+        iconName: "Zap",
+        phaseId: "base",
+        selectionType: "single",
+        optional: false,
+        packages: [
+          {
+            id: "gpu-intel",
+            name: "Intel Graphics (Integrated HD/UHD/Iris & Arc)",
+            packageName: "mesa vulkan-intel intel-media-driver",
+            source: "repo",
+            description: "Standard open-source Mesa driver with Vulkan and hardware VA-API video decoding for Intel integrated and discrete Arc graphics.",
+            pros: ["Kernel-level out-of-the-box stability", "Low power consumption and efficient hardware video decode", "Full Wayland compatibility"],
+            cons: ["Older GMA chipsets (Gen 3/4) lack Vulkan support"],
+            stabilityScore: 10,
+            tags: ["verified", "intel", "hardware", "recommended"],
+            recommended: true,
+            isOmarchyDefault: true
+          },
+          {
+            id: "gpu-amd",
+            name: "AMD Radeon Graphics",
+            packageName: "mesa vulkan-radeon libva-mesa-driver",
+            source: "repo",
+            description: "Standard AMDGPU open-source stack with RADV Vulkan and Mesa VA-API acceleration for modern and legacy Radeon cards.",
+            pros: ["Best-in-class Linux driver with zero proprietary blobs", "Flawless Wayland and gaming performance", "Native kernel modesetting"],
+            cons: ["Very old TeraScale cards (HD 5000/6000) require legacy radeon module"],
+            stabilityScore: 10,
+            tags: ["verified", "amd", "hardware", "recommended"],
+            recommended: true
+          },
+          {
+            id: "gpu-nvidia-dkms",
+            name: "NVIDIA Proprietary (DKMS)",
+            packageName: "nvidia-dkms nvidia-utils nvidia-settings lib32-nvidia-utils",
+            source: "repo",
+            description: "Official proprietary NVIDIA driver compiled via DKMS for current GeForce GTX 900+ / RTX cards. Injects Wayland environment variables.",
+            pros: ["Maximum 3D graphics, CUDA, and gaming performance", "Hardware NVENC video encoding", "Full DLSS support"],
+            cons: ["Requires kernel-matching rebuilds", "Explicit sync setup needed on Wayland"],
+            stabilityScore: 8,
+            tags: ["nvidia", "hardware", "modern-hardware"]
+          },
+          {
+            id: "gpu-nvidia-open",
+            name: "NVIDIA Open Kernel Modules (Turing+ / RTX)",
+            packageName: "nvidia-open-dkms nvidia-utils",
+            source: "repo",
+            description: "NVIDIA's open-source kernel modules for Turing, Ampere, Ada Lovelace, and newer GPUs (RTX 2000 series and up).",
+            pros: ["Open kernel modules integrated with Linux ecosystem", "Clean suspend/resume handling"],
+            cons: ["Not compatible with GTX 1000 series or older hardware"],
+            stabilityScore: 8,
+            tags: ["nvidia", "open-source", "modern-hardware"]
+          },
+          {
+            id: "gpu-vm-virtio",
+            name: "Virtual Machine (QEMU / KVM / VirtualBox)",
+            packageName: "mesa xf86-video-vmware spice-vdagent qemu-guest-agent",
+            source: "repo",
+            description: "Optimized guest drivers and clipboard/resolution synchronization daemons for running Arch inside a VM.",
+            pros: ["Dynamic window resizing and seamless clipboard sharing", "Minimal host resource footprint"],
+            cons: ["No direct bare-metal 3D GPU acceleration without PCIe passthrough"],
+            stabilityScore: 9,
+            tags: ["vm", "virtualization", "verified"]
+          },
+          {
+            id: "gpu-generic-skip",
+            name: "Skip / Generic Mesa Software Rasterizer",
+            packageName: "mesa",
+            source: "repo",
+            description: "Install basic Mesa LLVMpipe software rasterizer without hardware-specific acceleration (useful for troubleshooting or custom setups).",
+            pros: ["Universal fallback that works anywhere"],
+            cons: ["High CPU usage for any graphical rendering", "No hardware acceleration"],
+            stabilityScore: 7,
+            tags: ["fallback", "minimal"]
+          }
+        ]
+      },
+      {
         id: "display-protocol",
         name: "Display Protocol",
         shortDesc: "Wayland vs X11 windowing protocol foundation",

@@ -75,13 +75,24 @@ export const WizardHeader: React.FC = () => {
           </button>
         </div>
 
+        {/* Contributor Template Download */}
+        <a
+          href="/package-template.zip"
+          download="simplearch-package-template.zip"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-purple-300 bg-purple-950/40 hover:bg-purple-900/50 border border-purple-800/40 transition-colors"
+          title="Download Contributor Package Template (.zip) to submit missing packages"
+        >
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Contribute ZIP</span>
+        </a>
+
         {/* Review Selection CTA */}
         <button
           onClick={() => setIsReviewOpen(true)}
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 hover:bg-cyan-400 text-neutral-950 transition-all shadow-md shadow-cyan-500/20 active:scale-95"
         >
           <Eye className="w-4 h-4" />
-          <span>Review ({selectedCount})</span>
+          <span>Review &amp; Script ({selectedCount})</span>
         </button>
       </div>
     </header>

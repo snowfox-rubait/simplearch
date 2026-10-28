@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimpleArch Guide — Bootloader Wireframe</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body class="mode-wireframe theme-light">
+
+  <!-- Interactive Demo Controls Floating Toolbar -->
+  <aside class="demo-toolbar" aria-label="Interactive Controls">
+    <div class="toolbar-brand">Wireframe Preview Controls</div>
+    <div class="toolbar-actions">
+      <div class="toggle-group">
+        <button id="btn-wireframe" class="btn-toggle active" title="Show abstract boxes & placeholders as in wireframe.png">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
+          Wireframe Mode
+        </button>
+        <button id="btn-live" class="btn-toggle" title="Show actual screenshots from the archinstall media folder">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          Live Media Mode
+        </button>
+      </div>
+      <button id="btn-theme" class="btn-icon" title="Toggle Light / Dark Mode">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Global Header -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <span class="brand-bracket">[</span>
+        <span class="brand-name">SimpleArch</span>
+        <span class="brand-bracket">]</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#guide" class="nav-item active">Guide</a>
+        <a href="#selector" class="nav-item">Selector</a>
+        <a href="https://github.com" target="_blank" rel="noreferrer" class="nav-item">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-wrapper">
+    <div class="content-container">
+
+      <!-- Breadcrumbs & Step Progress -->
+      <nav class="step-tracker" aria-label="Progress">
+        <div class="breadcrumb">
+          <span class="crumb-parent">Guide</span>
+          <span class="crumb-separator">&gt;</span>
+          <span class="crumb-current" id="active-step-label">Bootloader</span>
+        </div>
+
+        <!-- 10-Segment Progress Bar -->
+        <div class="progress-bar-segments" role="progressbar" aria-valuenow="5" aria-valuemin="1" aria-valuemax="10">
+          <div class="segment completed" data-step="1" title="1. Intro & ISO"></div>
+          <div class="segment completed" data-step="2" title="2. Mirrors & Multilib"></div>
+          <div class="segment completed" data-step="3" title="3. Disk & Btrfs"></div>
+          <div class="segment completed" data-step="4" title="4. Swap on zram"></div>
+          <div class="segment active" data-step="5" title="5. Bootloader (Current)"></div>
+          <div class="segment" data-step="6" title="6. Kernels"></div>
+          <div class="segment" data-step="7" title="7. Hostname & Auth"></div>
+          <div class="segment" data-step="8" title="8. Profile Selection"></div>
+          <div class="segment" data-step="9" title="9. Network & Apps"></div>
+          <div class="segment" data-step="10" title="10. Confirmation"></div>
+        </div>
+      </nav>
+
+      <!-- Page Title Header -->
+      <header class="page-title-block">
+        <h1 class="page-heading">Bootloader</h1>
+        <p class="page-subtitle">Choosing between GRUB and Limine, and configuring Plymouth + UKI options.</p>
+      </header>
+
+      <!-- Section Row 1: Text Left, Media Right -->
+      <section class="alternating-row row-text-left">
+        <div class="col-text">
+          <h2 class="section-title">GRUB vs Limine</h2>
+          <p class="section-body">
+            By default, <code>archinstall</code> pre-selects <code>systemd-boot</code>, but for a resilient daily driver, you want a bootloader that natively connects to Btrfs snapshot rollbacks. Both <strong>GRUB</strong> and <strong>Limine</strong> support this, but Limine provides the cleanest integration with <code>limine-snapper-sync</code>, perfectly replicating Omarchy's instant boot-menu rollback pattern.
+          </p>
+          <div class="command-tag">
+            <span class="tag-label">Recommended:</span>
+            <code>Limine (or GRUB)</code>
+          </div>
+        </div>
+
+        <div class="col-media">
+          <div class="media-frame" data-real-src="images/we want either grub or limine as our bootloader, preferably limine.png" data-caption="Archinstall bootloader selection menu showing Limine and GRUB">
+            <div class="media-placeholder">
+              <svg class="placeholder-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span class="placeholder-text">[ screenshot: bootloader menu ]</span>
+            </div>
+            <img class="real-image" src="images/we want either grub or limine as our bootloader, preferably limine.png" alt="Archinstall bootloader selection menu showing Limine">
+          </div>
+          <figcaption class="media-caption">Figure 5.1: Switching from default systemd-boot to Limine</figcaption>
+        </div>
+      </section>
+
+      <!-- Section Row 2: Media Left, Text Right -->
+      <section class="alternating-row row-media-left">
+        <div class="col-media">
+          <div class="media-frame" data-real-src="images/if you enable plymouth, select &quot;details&quot; option.png" data-caption="Plymouth theme selection: details mode for diagnostics">
+            <div class="media-placeholder">
+              <svg class="placeholder-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span class="placeholder-text">[ GIF: Plymouth boot splash, details mode ]</span>
+            </div>
+            <img class="real-image" src="images/if you enable plymouth, select &quot;details&quot; option.png" alt="Plymouth details theme selected">
+          </div>
+          <figcaption class="media-caption">Figure 5.2: Selecting the "details" theme for boot-time logging</figcaption>
+        </div>
+
+        <div class="col-text">
+          <h2 class="section-title">Plymouth: Details Mode</h2>
+          <p class="section-body">
+            Plymouth renders a splash graphic during boot. For your first Arch installation, enable it and choose the <code>details</code> theme. This displays kernel text through Plymouth's renderer so you have instant visibility if anything hangs during early boot. Once your setup is verified, you can swap to an aesthetic graphical theme with a single pacman command.
+          </p>
+          <div class="legacy-note">
+            <span class="badge-legacy">Legacy Hardware Tip</span>
+            <span>If installing on ancient graphics (e.g. Intel GMA or Pentium E5800), keep Plymouth <strong>disabled</strong> to prevent blank-screen driver hangs.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Row 3: Dedicated Alert / Callout Placeholder -->
+      <aside class="callout-box warning-callout" role="alert">
+        <div class="callout-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="callout-content">
+          <h3 class="callout-title">Keep Unified Kernel Image (UKI) disabled for now</h3>
+          <p class="callout-body">
+            A Unified Kernel Image bundles the kernel, initramfs, and cmdline into a single signed EFI executable. While great for Secure Boot, Limine requires separate kernel and initramfs files to dynamically inject <code>rootflags=subvol=&lt;snapshot&gt;</code> for Btrfs snapshot rollbacks. Enabling UKI here breaks automatic boot-menu snapshot rollback.
+          </p>
+          <button class="callout-peek-btn" id="btn-peek-uki">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Peek Archinstall Menu Screenshot
+          </button>
+        </div>
+      </aside>
+
+      <!-- Section Row 4: Vanilla vs Configured Comparison -->
+      <section class="comparison-section">
+        <h2 class="comparison-heading">Vanilla vs Configured — Example</h2>
+        <div class="comparison-grid">
+          
+          <!-- Card 1: Before -->
+          <div class="comparison-card card-before">
+            <div class="comparison-media-slot">
+              <div class="media-placeholder">
+                <span class="placeholder-text">[ screenshot: default/unconfigured ]</span>
+              </div>
+              <img class="real-image" src="images/default bootloader is selected &quot;systemd-boot&quot; which we don't want.png" alt="Default systemd-boot option">
+            </div>
+            <div class="comparison-footer">
+              <span class="badge-status status-default">Before</span>
+              <span class="comparison-label">Vanilla Default (systemd-boot, no snapshot sync)</span>
+            </div>
+          </div>
+
+          <!-- Card 2: After -->
+          <div class="comparison-card card-after">
+            <div class="comparison-media-slot">
+              <div class="media-placeholder">
+                <span class="placeholder-text">[ screenshot/gif: usability config applied ]</span>
+              </div>
+              <img class="real-image" src="images/after setting bootloader up, it will roughly look like this.png" alt="Configured Limine bootloader with snapshot support">
+            </div>
+            <div class="comparison-footer">
+              <span class="badge-status status-configured">After</span>
+              <span class="comparison-label">SimpleArch Configured (Limine + Plymouth details)</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section Row 5: Bottom Navigation -->
+      <footer class="step-navigation-footer">
+        <a href="#swap" class="btn-nav btn-back" title="Go to Swap on zram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back: Swap
+        </a>
+        <a href="#kernel" class="btn-nav btn-next" title="Continue to Kernel Selection">
+          Next: Kernel
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- Modal Lightbox for Image Peeking -->
+  <div id="image-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-dialog">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-body">
+        <img id="modal-img" src="" alt="Screenshot Full View">
+        <p id="modal-caption" class="modal-caption-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

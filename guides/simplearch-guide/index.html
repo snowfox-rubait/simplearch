@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimpleArch — Pre-Installation Guide (Archinstall Walkthrough)</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-block">
+        <a href="#step-1" class="brand-link">
+          <span class="brand-bracket">[</span>SimpleArch<span class="brand-bracket">]</span>
+        </a>
+        <span class="guide-pill">Pre-Install Guide</span>
+      </div>
+
+      <div class="header-right">
+        <!-- Quick Jump Dropdown -->
+        <select id="step-dropdown" class="step-quick-jump" aria-label="Jump to guide step">
+          <option value="1">Step 1: Introduction & ISO Boot</option>
+          <option value="2">Step 2: Locales, Mirrors & Multilib</option>
+          <option value="3">Step 3: Disk, Btrfs & Encryption</option>
+          <option value="4">Step 4: Swap on zram</option>
+          <option value="5">Step 5: Bootloader & Plymouth Splash</option>
+          <option value="6">Step 6: Kernel Selection</option>
+          <option value="7">Step 7: Hostname & User Security</option>
+          <option value="8">Step 8: Profile Selection (Minimal)</option>
+          <option value="9">Step 9: Network & Applications</option>
+          <option value="10">Step 10: Installation & Reboot</option>
+        </select>
+
+        <a href="#step-1" class="nav-anchor active">Guide</a>
+        <a href="#selector" class="nav-anchor">Selector</a>
+        <a href="#contribute" class="nav-anchor">Contribute</a>
+        <a href="https://github.com/simplearch/simplearch" target="_blank" rel="noreferrer" class="nav-anchor">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Progress & Step Breadcrumb Bar -->
+  <nav class="progress-container" aria-label="Step Progress">
+    <div class="progress-inner">
+      <div class="progress-meta">
+        <span class="crumb-prefix">Guide &gt;</span>
+        <span id="active-crumb" class="crumb-active">Introduction & ISO Boot</span>
+      </div>
+
+      <!-- 10-Segment Progress Bar -->
+      <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="10">
+        <div class="progress-bar-seg active" data-step="1" title="1. Intro & ISO Boot"></div>
+        <div class="progress-bar-seg" data-step="2" title="2. Mirrors & Multilib"></div>
+        <div class="progress-bar-seg" data-step="3" title="3. Disk, Btrfs & Encryption"></div>
+        <div class="progress-bar-seg" data-step="4" title="4. Swap on zram"></div>
+        <div class="progress-bar-seg" data-step="5" title="5. Bootloader & Splash"></div>
+        <div class="progress-bar-seg" data-step="6" title="6. Kernel Selection"></div>
+        <div class="progress-bar-seg" data-step="7" title="7. Hostname & Security"></div>
+        <div class="progress-bar-seg" data-step="8" title="8. Profile Selection (Minimal)"></div>
+        <div class="progress-bar-seg" data-step="9" title="9. Network & Applications"></div>
+        <div class="progress-bar-seg" data-step="10" title="10. Confirmation & Reboot"></div>
+      </div>
+
+      <div class="kb-nav-hint">
+        <span>Keys: <kbd>j</kbd>/<kbd>→</kbd> next, <kbd>k</kbd>/<kbd>←</kbd> prev</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main class="page-wrapper">
+
+    <!-- ======================================================================
+         STEP 1: Introduction & ISO Boot
+         ====================================================================== -->
+    <article class="step-page active-step" data-step-index="1">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 01 OF 10</span>
+          <span class="step-timing">Est. time: ~1 min</span>
+        </div>
+        <h1 class="step-title">Introduction & TUI Controls</h1>
+        <p class="step-subtitle">Booting the official Arch Linux live ISO and mastering the terminal interface.</p>
+      </header>
+
+      <!-- Row A -->
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Booting the Arch Live Environment</h2>
+          <p class="block-p">
+            Boot your machine from an official Arch Linux installation USB flash drive. Once initialized, you will arrive at a root shell prompt with a flashing cursor. Your network is often automatically brought online via DHCP.
+          </p>
+          <div class="command-banner">
+            <code id="cmd-archinstall">archinstall</code>
+            <button class="btn-copy" data-copy-target="cmd-archinstall">Copy</button>
+          </div>
+          <p class="block-p">Type <code>archinstall</code> and press <kbd>Enter</kbd> to launch the guided installer.</p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Arch Linux live ISO first boot prompt">
+            <img src="media/01-introduction-and-boot/arch iso installation first boot.png" alt="Arch Linux first boot root prompt">
+          </div>
+          <span class="shot-caption">Figure 1.1: Arch Linux live environment root prompt</span>
+        </div>
+      </div>
+
+      <!-- Row B -->
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Archinstall guided TUI first look">
+            <img src="media/01-introduction-and-boot/inside archinstall (first look).png" alt="Archinstall main menu">
+          </div>
+          <span class="shot-caption">Figure 1.2: Archinstall guided TUI main menu</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Mastering TUI Navigation</h2>
+          <p class="block-p">The <code>archinstall</code> installer is a curses terminal interface with keyboard-first controls:</p>
+          <ul class="block-p" style="padding-left: 1.25rem;">
+            <li><strong>Arrow Keys</strong> or <code>j</code> / <code>k</code> (vim keys): Navigate up and down menus.</li>
+            <li><code>/</code> (Slash): Opens the interactive fuzzy finder search inside sub-menus.</li>
+            <li><kbd>Enter</kbd>: Selects an option or confirms a dialog.</li>
+            <li><kbd>Space</kbd>: Toggles checkboxes in multi-select menus (Note: <kbd>Tab</kbd> does not work here).</li>
+            <li><kbd>Esc</kbd>: Cancels current action or goes back to the parent menu.</li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <div></div>
+        <button class="btn-step-nav btn-step-next" data-nav-step="2">
+          Next: Mirrors & Multilib &rarr;
+        </button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 2: Locales, Mirrors & Repositories
+         ====================================================================== -->
+    <article class="step-page" data-step-index="2">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 02 OF 10</span>
+          <span class="step-timing">Est. time: ~1 min</span>
+        </div>
+        <h1 class="step-title">Locales, Mirrors & Multilib</h1>
+        <p class="step-subtitle">Optimizing package download speeds and enabling 32-bit library support.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Regional Mirrors</h2>
+          <p class="block-p">
+            Keep <strong>Archinstall language</strong> and <strong>Locales</strong> as default (<code>en_US.UTF-8</code>). Enter <strong>Mirrors and repositories</strong> and set your region to your country or a geographically close neighbor. Using local mirrors dramatically reduces package download latency during and after install.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Filtering region mirrors by country">
+            <img src="media/02-locales-mirrors-repos/filter out your country.png" alt="Filtering country mirrors in archinstall">
+          </div>
+          <span class="shot-caption">Figure 2.1: Fuzzy-filtering regional mirrors</span>
+        </div>
+      </div>
+
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Enabling multilib optional repository">
+            <img src="media/02-locales-mirrors-repos/now choose multilib.png" alt="Enabling multilib repo">
+          </div>
+          <span class="shot-caption">Figure 2.2: Checking multilib repository</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Enable the <code>multilib</code> Repository</h2>
+          <p class="block-p">
+            Under <strong>Optional repositories</strong>, select <code>multilib</code>. This enables access to 32-bit package libraries on 64-bit Arch.
+          </p>
+          <div class="legacy-note">
+            <strong>Why this is critical:</strong> Essential tools like Steam, Wine, Proton, and older legacy hardware drivers depend on 32-bit multilib binaries. Turning it on now avoids manual <code>pacman.conf</code> edits later.
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="1">&larr; Back: Introduction</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="3">Next: Disk & Btrfs &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 3: Disk Partitioning, Encryption & Snapshots
+         ====================================================================== -->
+    <article class="step-page" data-step-index="3">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 03 OF 10</span>
+          <span class="step-timing">Est. time: ~3 min</span>
+        </div>
+        <h1 class="step-title">Disk Partitioning, LUKS & Snapshots</h1>
+        <p class="step-subtitle">Btrfs subvolume layout, whole-disk encryption, and instant snapshot rollback preparation.</p>
+      </header>
+
+      <!-- Sub-section: Partitioning -->
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Partitioning & Btrfs Subvolumes</h2>
+          <p class="block-p">
+            Select <strong>Disk configuration</strong> &gt; pick your installation drive &gt; choose <strong>Best-effort partitioning</strong> &gt; select <strong>Btrfs</strong>. When prompted for volume structure, select <strong>Yes</strong> to default subvolumes (<code>@</code> for root and <code>@home</code> for users).
+          </p>
+          <p class="block-p">
+            Turn <strong>Use compression</strong> to <code>yes</code> (transparent zstd). <strong>Do NOT disable copy-on-write</strong> (CoW is mandatory for snapshots). Leave LVM disabled.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Confirming default Btrfs subvolumes">
+            <img src="media/03-disk-partitioning-encryption-snapshots/select yes.png" alt="Using Btrfs subvolumes">
+          </div>
+          <span class="shot-caption">Figure 3.1: Enabling default Btrfs subvolume structure</span>
+        </div>
+      </div>
+
+      <!-- Sub-section: LUKS Encryption -->
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Applying LUKS encryption to Btrfs partition">
+            <img src="media/03-disk-partitioning-encryption-snapshots/your encryption partition should look like this.png" alt="Encrypted partition selection">
+          </div>
+          <span class="shot-caption">Figure 3.2: LUKS applied to root partition (leaving ESP unencrypted)</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Disk Encryption (LUKS)</h2>
+          <p class="block-p">
+            Select <strong>Disk encryption</strong> &gt; choose <strong>LUKS</strong> &gt; set your encryption password &gt; leave iteration time default (10000ms, or 5000ms if testing in a VM). Under <strong>Partitions</strong>, select your main Btrfs partition (e.g. <code>/dev/vda2</code>). Leave the EFI system partition (ESP) unencrypted so firmware can boot.
+          </p>
+        </div>
+      </div>
+
+      <!-- Sub-section: Snapshots -->
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">3. Btrfs Snapshots: Snapper</h2>
+          <p class="block-p">
+            Select <strong>Btrfs snapshots</strong> &gt; select <strong>Snapper</strong>. While Timeshift is good, Snapper has the decisive advantage of pairing with <code>limine-snapper-sync</code>, allowing you to boot directly into previous system snapshots from your bootloader if an update ever breaks anything.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Snapper snapshot manager selected">
+            <img src="media/03-disk-partitioning-encryption-snapshots/it should now look like this (btrfs snapshot, snapper).png" alt="Snapper configured">
+          </div>
+          <span class="shot-caption">Figure 3.3: Snapper active on root filesystem</span>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="2">&larr; Back: Mirrors</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="4">Next: Swap &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 4: Swap on zram
+         ====================================================================== -->
+    <article class="step-page" data-step-index="4">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 04 OF 10</span>
+          <span class="step-timing">Est. time: ~30 sec</span>
+        </div>
+        <h1 class="step-title">Swap on zram</h1>
+        <p class="step-subtitle">Configuring compressed in-RAM swap to avoid disk thrashing and lockups.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Enable Swap on zram</h2>
+          <p class="block-p">
+            Select <strong>Swap</strong> &gt; choose <strong>Yes</strong>. zram creates a compressed block device in your physical RAM. When memory gets tight, inactive pages are compressed dynamically instead of writing slowly to SSD flash, prolonging drive lifespan and preventing desktop stutter.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Enabling Swap on zram">
+            <img src="media/04-swap/swap on zram, select yes.png" alt="Enabling swap on zram">
+          </div>
+          <span class="shot-caption">Figure 4.1: Enabling zram swap</span>
+        </div>
+      </div>
+
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="zram compression algorithm selection">
+            <img src="media/04-swap/this is default swap, keep as is if your pc is modern.png" alt="Default swap settings">
+          </div>
+          <span class="shot-caption">Figure 4.2: Default zstd algorithm for modern CPUs</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Compression Algorithm: zstd vs lz4</h2>
+          <p class="block-p">
+            <strong>Modern CPUs (Default):</strong> Keep <code>zstd</code>. It provides the best compression ratio with negligible CPU utilization on modern multi-core processors.
+          </p>
+          <div class="legacy-note">
+            <span class="step-number-tag" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: rgba(245, 158, 11, 0.3);">Legacy Hardware</span>
+            <p style="margin-top: 0.35rem;">If installing on an ancient/weak dual-core (e.g. Pentium E5800), select <strong><code>lz4</code></strong>. It has much lower compression CPU overhead at the cost of a slightly lower compression ratio.</p>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="3">&larr; Back: Disk & Btrfs</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="5">Next: Bootloader &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 5: Bootloader & Plymouth Splash
+         ====================================================================== -->
+    <article class="step-page" data-step-index="5">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 05 OF 10</span>
+          <span class="step-timing">Est. time: ~2 min</span>
+        </div>
+        <h1 class="step-title">Bootloader & Plymouth Splash</h1>
+        <p class="step-subtitle">Choosing between GRUB and Limine, and configuring Plymouth + UKI options.</p>
+      </header>
+
+      <!-- Row A -->
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Limine vs GRUB</h2>
+          <p class="block-p">
+            By default, <code>archinstall</code> pre-selects <code>systemd-boot</code>, which lacks easy snapshot integration. We recommend <strong>Limine</strong> (or GRUB). Limine provides the cleanest native integration with <code>limine-snapper-sync</code>, perfectly matching Omarchy's instant boot-menu rollback capability.
+          </p>
+          <div class="command-banner">
+            <span>Recommended Bootloader:</span>
+            <code>Limine</code>
+          </div>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Selecting Limine as the bootloader">
+            <img src="media/05-bootloader-and-splash/we want either grub or limine as our bootloader, preferably limine.png" alt="Limine bootloader selected">
+          </div>
+          <span class="shot-caption">Figure 5.1: Switching from default systemd-boot to Limine</span>
+        </div>
+      </div>
+
+      <!-- Row B -->
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Selecting Plymouth details theme">
+            <img src="media/05-bootloader-and-splash/if you enable plymouth, select &quot;details&quot; option.png" alt="Plymouth details theme">
+          </div>
+          <span class="shot-caption">Figure 5.2: Selecting the 'details' theme for boot logging</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Plymouth: Details Mode</h2>
+          <p class="block-p">
+            Plymouth handles boot splash graphics. For your initial install, enable it and pick the <code>details</code> theme. This renders kernel log output cleanly through Plymouth so you have immediate visibility if any service hangs during startup. You can switch to an aesthetic graphical theme later with one command.
+          </p>
+          <div class="legacy-note">
+            <strong>Legacy Hardware Tip:</strong> On old GPUs (e.g. Intel GMA), disable Plymouth completely to prevent black-screen hangs.
+          </div>
+        </div>
+      </div>
+
+      <!-- Warning Callout: UKI -->
+      <div class="alert-callout">
+        <div class="alert-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="alert-content">
+          <h3 class="alert-title">Keep Unified Kernel Image (UKI) disabled for now</h3>
+          <p class="alert-text">
+            A Unified Kernel Image bundles the kernel, initramfs, and cmdline into a single signed executable. Limine requires separate kernel and initramfs files to dynamically boot Btrfs snapshot subvolumes (injecting <code>rootflags=subvol=&lt;snapshot&gt;</code>). Enabling UKI here breaks automatic boot-menu rollback entries. Keep it <strong>disabled</strong>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Comparison Section -->
+      <div class="comparison-container">
+        <h3 class="comparison-header">Vanilla vs Configured — Example</h3>
+        <div class="comparison-dual-grid">
+          <div class="comp-box">
+            <div class="comp-media" data-caption="Default systemd-boot configuration">
+              <img src="media/05-bootloader-and-splash/default bootloader is selected &quot;systemd-boot&quot; which we don't want.png" alt="Default systemd-boot">
+            </div>
+            <div class="comp-footer">
+              <span class="badge-tag badge-before">Before</span>
+              <span class="comp-text">Vanilla Default (systemd-boot, no snapshot rollback menu)</span>
+            </div>
+          </div>
+
+          <div class="comp-box">
+            <div class="comp-media" data-caption="Configured Limine bootloader with snapshot support">
+              <img src="media/05-bootloader-and-splash/after setting bootloader up, it will roughly look like this.png" alt="Configured Limine">
+            </div>
+            <div class="comp-footer">
+              <span class="badge-tag badge-after">After</span>
+              <span class="comp-text">SimpleArch Configured (Limine + Plymouth details + snapshot support)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="4">&larr; Back: Swap</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="6">Next: Kernels &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 6: Kernel Selection
+         ====================================================================== -->
+    <article class="step-page" data-step-index="6">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 06 OF 10</span>
+          <span class="step-timing">Est. time: ~1 min</span>
+        </div>
+        <h1 class="step-title">Kernel Selection</h1>
+        <p class="step-subtitle">Establishing a resilient multi-kernel strategy with automatic fallbacks.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Why Install More Than One Kernel?</h2>
+          <p class="block-p">
+            In <code>archinstall</code>, you can multi-select kernels. Installing <code>linux-lts</code> alongside your primary kernel provides an immediate fallback safety net. If a mainline kernel update ever introduces a hardware regression, you simply select <code>linux-lts</code> from your Limine boot menu to restore a working system.
+          </p>
+          <div class="command-banner">
+            <span>Recommended Pairing:</span>
+            <code>linux + linux-lts</code>
+          </div>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Listing the 4 official Arch kernel options">
+            <img src="media/06-kernel/there are 4 kernel options.png" alt="Kernel selection menu">
+          </div>
+          <span class="shot-caption">Figure 6.1: The 4 official Arch kernel options</span>
+        </div>
+      </div>
+
+      <div class="multi-grid">
+        <div class="card-item">
+          <h3 class="card-title">linux (Mainline)</h3>
+          <p class="card-desc">Tracks upstream Linux closely. Safest default with broadest community testing and latest driver support.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-title">linux-lts (Long Term Support)</h3>
+          <p class="card-desc">Rock-solid stability with backported fixes. Perfect second fallback kernel alongside mainline.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-title">linux-zen</h3>
+          <p class="card-desc">Tuned for desktop multitasking, lower input latency, and gaming responsiveness.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-title">linux-hardened</h3>
+          <p class="card-desc">Security-hardened kernel with exploit mitigations (may conflict with proprietary NVIDIA drivers).</p>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="5">&larr; Back: Bootloader</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="7">Next: Hostname & Auth &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 7: Hostname, Authentication & Security
+         ====================================================================== -->
+    <article class="step-page" data-step-index="7">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 07 OF 10</span>
+          <span class="step-timing">Est. time: ~2 min</span>
+        </div>
+        <h1 class="step-title">Hostname & User Security</h1>
+        <p class="step-subtitle">Disabling root login, creating your sudo user, and setting network identity.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Hostname vs Username</h2>
+          <p class="block-p">
+            <strong>Hostname</strong> is the machine's name on your network (e.g. <code>elitedesk-800</code> or <code>arch-desktop</code>). <strong>Username</strong> is your personal account name. Think of it as <code>username@hostname</code> ("who @ which machine").
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Setting machine hostname">
+            <img src="media/07-hostname-and-authentication/set a hostname.png" alt="Setting hostname in archinstall">
+          </div>
+          <span class="shot-caption">Figure 7.1: Setting machine hostname</span>
+        </div>
+      </div>
+
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Leaving root password blank for safety">
+            <img src="media/07-hostname-and-authentication/do not set a root password unless you know why.png" alt="Root password prompt">
+          </div>
+          <span class="shot-caption">Figure 7.2: Leave root password blank</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Disabling Direct Root Login</h2>
+          <p class="block-p">
+            Leave <strong>Root password</strong> blank. This disables direct root logins, locking down your system against remote brute-force attacks. All administrative tasks will be executed securely via <code>sudo</code> from your primary user account.
+          </p>
+        </div>
+      </div>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">3. Create Your Sudo User Account</h2>
+          <p class="block-p">
+            Select <strong>User account</strong> &gt; enter your username and password &gt; toggle <strong>sudo</strong> to <code>yes</code>. This atomically configures wheel group permissions.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Enabling sudo for user">
+            <img src="media/07-hostname-and-authentication/select your user to be &quot;sudo&quot;.png" alt="Sudo toggle">
+          </div>
+          <span class="shot-caption">Figure 7.3: Assigning sudo privileges to primary user</span>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="6">&larr; Back: Kernels</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="8">Next: Profile Selection &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 8: Profile Selection (Minimal vs Desktop Bundles)
+         ====================================================================== -->
+    <article class="step-page" data-step-index="8">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 08 OF 10</span>
+          <span class="step-timing">Est. time: ~2 min</span>
+        </div>
+        <h1 class="step-title">Profile Selection: Choose Minimal</h1>
+        <p class="step-subtitle">Why Minimal is strictly recommended to create a clean foundation for SimpleArch.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Profile Types: The Core Distinction</h2>
+          <p class="block-p">
+            Opening <strong>Profile &gt; Type</strong> reveals four choices: <code>Desktop</code>, <code>Minimal</code>, <code>Server</code>, and <code>Xorg</code>.
+          </p>
+          <div class="legacy-note" style="border-left: 3px solid var(--accent-cyan);">
+            <strong>Recommendation: Pick Minimal!</strong><br>
+            Selecting <code>Desktop</code> installs pre-bundled packages you didn't choose piece-by-piece, and skips custom graphics driver configuration. Picking <strong><code>Minimal</code></strong> gives you a pristine, conflict-free base so SimpleArch's post-install selector can assemble your exact custom stack.
+          </div>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Profile Type selection in archinstall">
+            <img src="media/08-profiles-desktop-and-drivers/profiles > type > select profile type sub-menu.png" alt="Profile Type selection">
+          </div>
+          <span class="shot-caption">Figure 8.1: Profile types in archinstall</span>
+        </div>
+      </div>
+
+      <!-- Expandable Reference: 21 DE Bundles -->
+      <div class="drawer-container">
+        <button class="drawer-toggle" data-drawer-target="drawer-des">
+          <span>Explore Archinstall's 21 Pre-Bundled Desktop Environments (Reference Only)</span>
+          <span class="drawer-chevron">&#9662;</span>
+        </button>
+        <div id="drawer-des" class="drawer-content">
+          <p class="block-p" style="margin-bottom: 1rem;">These are the 21 desktop bundles offered in archinstall's Desktop profile. SimpleArch replaces these rigid bundles with à la carte component selection.</p>
+          <div class="drawer-grid">
+            <div class="drawer-item" data-caption="Hyprland WM Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/Hyperland WM bundle.png" alt="Hyprland"><div class="drawer-item-title">Hyprland WM</div></div>
+            <div class="drawer-item" data-caption="Sway WM Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/Sway WM bundles.png" alt="Sway"><div class="drawer-item-title">Sway WM</div></div>
+            <div class="drawer-item" data-caption="i3 WM Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/i3 WM bundle.png" alt="i3"><div class="drawer-item-title">i3 WM</div></div>
+            <div class="drawer-item" data-caption="KDE Plasma DE Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/KDE Plasma DE bundle.png" alt="KDE Plasma"><div class="drawer-item-title">KDE Plasma</div></div>
+            <div class="drawer-item" data-caption="GNOME DE Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/GNOME DE bundle.png" alt="GNOME"><div class="drawer-item-title">GNOME</div></div>
+            <div class="drawer-item" data-caption="XFCE4 DE Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/XFCE4 DE bundle.png" alt="XFCE4"><div class="drawer-item-title">XFCE4</div></div>
+            <div class="drawer-item" data-caption="Cosmic DE Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/Cosmic DE bundle.png" alt="Cosmic"><div class="drawer-item-title">Cosmic DE</div></div>
+            <div class="drawer-item" data-caption="niri WM Bundle"><img src="media/08-profiles-desktop-and-drivers/desktop environment bundle in archinstall script/niri wm bundle.png" alt="niri"><div class="drawer-item-title">niri WM</div></div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="7">&larr; Back: Hostname</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="9">Next: Network & Apps &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 9: Applications, Network & System Services
+         ====================================================================== -->
+    <article class="step-page" data-step-index="9">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 09 OF 10</span>
+          <span class="step-timing">Est. time: ~2 min</span>
+        </div>
+        <h1 class="step-title">Audio, Connectivity & Services</h1>
+        <p class="step-subtitle">Configuring PipeWire, NetworkManager (iwd), UFW firewall, and printing.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Audio: Select PipeWire</h2>
+          <p class="block-p">
+            Under <strong>Application</strong>, choose <strong>PipeWire</strong> for audio. PipeWire supersedes PulseAudio and JACK, unifying low-latency audio processing and Wayland screen-sharing protocols.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Selecting PipeWire audio server">
+            <img src="media/09-applications-network-and-time/select pipewire as your audio server.png" alt="PipeWire audio selection">
+          </div>
+          <span class="shot-caption">Figure 9.1: Selecting PipeWire as audio server</span>
+        </div>
+      </div>
+
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Selecting iwd backend for NetworkManager">
+            <img src="media/09-applications-network-and-time/either select (default backend) or (iwd) in network manager.png" alt="NetworkManager backend">
+          </div>
+          <span class="shot-caption">Figure 9.2: NetworkManager backend choice</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. NetworkManager Backend: iwd vs Default</h2>
+          <p class="block-p">
+            Choose <strong>Network Manager (iwd backend)</strong> if your Wi-Fi card was manufactured after ~2014 (especially Intel chipsets like Wireless 8265/8275). <code>iwd</code> uses kernel cryptography for faster roaming and lower power draw. For pre-2014 hardware, keep the default backend.
+          </p>
+        </div>
+      </div>
+
+      <div class="multi-grid">
+        <div class="card-item">
+          <h3 class="card-title">Bluetooth = Yes</h3>
+          <p class="card-desc">Enables the bluez daemon and utility tools so wireless peripherals work immediately.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-title">Firewall = UFW</h3>
+          <p class="card-desc">Uncomplicated Firewall is chosen for its simplicity and rock-solid single-machine desktop protection.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-title">Printing = Yes (CUPS)</h3>
+          <p class="card-desc">Enables printing service subsystem, preventing missing print-driver headaches later.</p>
+        </div>
+        <div class="card-item">
+          <h3 class="card-title">Timezone = Your City</h3>
+          <p class="card-desc">Fuzzy-filter and select your local timezone; keep automatic NTP time sync enabled.</p>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="8">&larr; Back: Profile</button>
+        <button class="btn-step-nav btn-step-next" data-nav-step="10">Next: Installation &rarr;</button>
+      </footer>
+    </article>
+
+    <!-- ======================================================================
+         STEP 10: Installation Confirmation & Reboot
+         ====================================================================== -->
+    <article class="step-page" data-step-index="10">
+      <header class="step-header">
+        <div class="step-badge-row">
+          <span class="step-number-tag">STEP 10 OF 10</span>
+          <span class="step-timing">Est. time: ~3 to 10 min</span>
+        </div>
+        <h1 class="step-title">Installation & Transition to SimpleArch</h1>
+        <p class="step-subtitle">Executing the base install, rebooting, and launching SimpleArch.</p>
+      </header>
+
+      <div class="block-row">
+        <div class="col-text">
+          <h2 class="block-heading">1. Double-Check and Install</h2>
+          <p class="block-p">
+            Scroll down the main menu to <strong>Install</strong>. Press <kbd>Enter</kbd> and confirm the prompt by selecting <code>yes</code>. A live countdown will begin, followed by disk formatting and package download. Installation typically takes 3 to 10 minutes.
+          </p>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Confirming installation in archinstall">
+            <img src="media/10-install-and-confirmation/press yes to continue installing arch.png" alt="Confirming install">
+          </div>
+          <span class="shot-caption">Figure 10.1: Final installation confirmation</span>
+        </div>
+      </div>
+
+      <div class="block-row reverse-row">
+        <div class="col-media">
+          <div class="terminal-shot" data-caption="Installation complete: select Reboot system">
+            <img src="media/10-install-and-confirmation/installation has finished. reboot the system.png" alt="Installation finished prompt">
+          </div>
+          <span class="shot-caption">Figure 10.2: Prompt upon completion: select Reboot system</span>
+        </div>
+        <div class="col-text">
+          <h2 class="block-heading">2. Completion: Select "Reboot system"</h2>
+          <p class="block-p">
+            When installation completes, archinstall prompts: <strong>"What would you like to do next?"</strong>
+          </p>
+          <p class="block-p">
+            Select <strong><code>Reboot system</code></strong> and press <kbd>Enter</kbd>. As your machine restarts, remove your USB installation flash drive.
+          </p>
+        </div>
+      </div>
+
+      <!-- Transition to SimpleArch CTA Banner -->
+      <div class="block-row" style="background: linear-gradient(180deg, #131d2e 0%, #0d1420 100%); border-color: rgba(56, 189, 248, 0.3);">
+        <div class="col-text" style="gap: 1rem;">
+          <span class="step-number-tag" style="align-self: flex-start;">NEXT PHASE</span>
+          <h2 class="block-heading" style="font-size: 1.5rem; color: var(--text-white);">Welcome to Clean Arch Linux!</h2>
+          <p class="block-p">
+            You are now booted into your clean, pristine Arch Linux installation with working network, audio plumbing, and a responsive terminal.
+          </p>
+          <p class="block-p">
+            Now visit the <strong>SimpleArch Selector</strong> on your phone/browser to choose your compositor, status bar, dev tools, and daily apps, or run your generated script.
+          </p>
+        </div>
+        <div class="col-media" style="align-items: center; justify-content: center;">
+          <a href="#selector" class="btn-step-nav btn-step-next" style="font-size: 1rem; padding: 0.85rem 1.5rem;">
+            Launch SimpleArch Selector &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Community & Contribution Section -->
+      <div id="contribute" class="block-row" style="background: var(--bg-card); border: 1px solid var(--border-card); margin-top: 1.5rem;">
+        <div class="col-text" style="gap: 0.85rem;">
+          <span class="step-number-tag" style="background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(168, 85, 247, 0.3);">COMMUNITY POWERED</span>
+          <h2 class="block-heading" style="font-size: 1.35rem; color: var(--text-white);">Missing Your Favorite Tool or Package?</h2>
+          <p class="block-p">
+            SimpleArch is completely open and community-driven. You don't have to wait for maintainers to add new window managers, status bars, terminals, or utilities.
+          </p>
+          <p class="block-p" style="font-size: 0.9rem;">
+            <strong>Low-friction submission:</strong> Download our contributor template, fill out <code>metadata.json</code> (pros, cons, tags, hardware profile), drop your vanilla and riced screenshots/GIFs into <code>media/</code>, and submit the ZIP archive on GitHub!
+          </p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.5rem;">
+            <a href="package-template.zip" download="simplearch-package-template.zip" class="btn-step-nav btn-step-next" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download Template (.zip)
+            </a>
+            <a href="https://github.com/simplearch/simplearch" target="_blank" rel="noreferrer" class="btn-step-nav btn-step-prev" style="text-decoration: none;">
+              Submit on GitHub &rarr;
+            </a>
+          </div>
+        </div>
+        <div class="col-media">
+          <div class="terminal-shot" style="padding: 1.25rem; font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-body); border-radius: var(--radius-md); border: 1px solid var(--border-subtle); color: var(--text-muted); line-height: 1.6;">
+            <span style="color: var(--accent-cyan); font-weight: 600;"># Contribution Package Structure</span><br>
+            my-tool-package.zip<br>
+            ├── <span style="color: var(--accent-emerald);">metadata.json</span> (tags, pros/cons, packages)<br>
+            ├── <span style="color: #c084fc;">media/</span><br>
+            │   ├── vanilla.png (before ricing)<br>
+            │   ├── riced-1.png (customized look)<br>
+            │   └── demo.gif (workflow animation)<br>
+            └── <span style="color: #fcd34d;">config/</span> (optional baseline dotfile)
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer-step-nav">
+        <button class="btn-step-nav btn-step-prev" data-nav-step="9">&larr; Back: Services</button>
+        <button class="btn-step-nav btn-step-prev" data-nav-step="1">Restart Guide &uarr;</button>
+      </footer>
+    </article>
+
+  </main>
+
+  <!-- Fullscreen Modal Lightbox for Image Inspection -->
+  <div id="media-modal" class="modal-backdrop" aria-hidden="true" role="dialog">
+    <div class="modal-card">
+      <button id="modal-close" class="modal-close-btn" aria-label="Close image preview">&times;</button>
+      <img id="modal-image" src="" alt="Enlarged screenshot view">
+      <div id="modal-text" class="modal-meta"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

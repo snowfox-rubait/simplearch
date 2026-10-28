@@ -1,8 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { PackageItem, SelectionType } from "@/types/catalog";
-import { Check, CheckCircle2, ExternalLink, GitFork, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  Check,
+  CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  Cpu,
+  ExternalLink,
+  Eye,
+  GitFork,
+  Image as ImageIcon,
+  ShieldCheck,
+  Sparkles,
+  Zap
+} from "lucide-react";
 import clsx from "clsx";
 
 interface PackageCardProps {
@@ -18,6 +31,10 @@ export const PackageCard: React.FC<PackageCardProps> = ({
   selectionType,
   onToggle
 }) => {
+  const [showMedia, setShowMedia] = useState(false);
+
+  const hasMedia = Boolean(pkg.media && (pkg.media.before_ricing || (pkg.media.after_ricing && pkg.media.after_ricing.length > 0)));
+
   return (
     <div
       onClick={onToggle}
@@ -29,9 +46,9 @@ export const PackageCard: React.FC<PackageCardProps> = ({
       )}
     >
       <div>
-        {/* Top Header: Title, Selection Checkbox/Radio, Badges */}
+        {/* Top Header: Title, Badges, Selection Indicator */}
         <div className="flex items-start justify-between gap-3 mb-3">
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
               <h4 className="text-base font-semibold text-neutral-100 group-hover:text-cyan-400 transition-colors">
                 {pkg.name}
@@ -63,7 +80,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({
 
             <div className="text-xs font-mono text-neutral-400 flex items-center gap-2">
               <span className="text-neutral-500">$ pacman -S</span>
-              <span className="text-cyan-300/90">{pkg.packageName}</span>
+              <span className="text-cyan-300/90 truncate">{pkg.packageName}</span>
             </div>
           </div>
 
@@ -88,13 +105,44 @@ export const PackageCard: React.FC<PackageCardProps> = ({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-neutral-300 leading-relaxed mb-4">
+        <p className="text-sm text-neutral-300 leading-relaxed mb-3">
           {pkg.description}
         </p>
 
+        {/* Badges / Tags */}
+        {pkg.tags && pkg.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {pkg.tags.map((tag) => {
+              const isOldHw = tag === "old-hardware-friendly" || tag === "legacy";
+              const isVerified = tag === "verified";
+              const isMem = tag === "minimal-memory";
+              const isGpu = tag === "gpu-composited" || tag === "modern-hardware";
+
+              return (
+                <span
+                  key={tag}
+                  className={clsx(
+                    "text-[10px] font-mono px-2 py-0.5 rounded-md flex items-center gap-1",
+                    isVerified && "bg-emerald-950/50 text-emerald-400 border border-emerald-800/50",
+                    isOldHw && "bg-amber-950/50 text-amber-300 border border-amber-800/50",
+                    isMem && "bg-cyan-950/50 text-cyan-300 border border-cyan-800/50",
+                    isGpu && "bg-indigo-950/50 text-indigo-300 border border-indigo-800/50",
+                    !isVerified && !isOldHw && !isMem && !isGpu && "bg-neutral-900 text-neutral-400 border border-neutral-800"
+                  )}
+                >
+                  {isOldHw && <Cpu className="w-2.5 h-2.5" />}
+                  {isVerified && <CheckCircle2 className="w-2.5 h-2.5" />}
+                  {isGpu && <Zap className="w-2.5 h-2.5" />}
+                  {tag}
+                </span>
+              );
+            })}
+          </div>
+        )}
+
         {/* Pros & Cons Bullets */}
         {(pkg.pros.length > 0 || pkg.cons.length > 0) && (
-          <div className="space-y-2 mb-4 text-xs">
+          <div className="space-y-1.5 mb-3 text-xs">
             {pkg.pros.map((pro, i) => (
               <div key={i} className="flex items-start gap-1.5 text-neutral-300">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
@@ -114,12 +162,80 @@ export const PackageCard: React.FC<PackageCardProps> = ({
         {pkg.targetConfigPath && (
           <div className="mb-3 text-[11px] font-mono text-neutral-400 bg-neutral-950/80 px-2.5 py-1.5 rounded border border-neutral-800 flex items-center justify-between">
             <span className="text-neutral-500">Config:</span>
-            <span className="text-neutral-200">{pkg.targetConfigPath}</span>
+            <span className="text-neutral-200 truncate">{pkg.targetConfigPath}</span>
           </div>
         )}
+
+        {/* Media Showcase Toggle Button */}
+        <div className="mb-3" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            onClick={() => setShowMedia(!showMedia)}
+            className="w-full text-xs font-medium py-1.5 px-3 rounded-lg bg-neutral-950/80 hover:bg-neutral-800/80 text-neutral-300 hover:text-cyan-300 border border-neutral-800 flex items-center justify-between transition-colors"
+          >
+            <span className="flex items-center gap-1.5">
+              <ImageIcon className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Ricing Showcase: Before vs After</span>
+            </span>
+            {showMedia ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+
+          {/* Media Drawer */}
+          {showMedia && (
+            <div className="mt-2.5 p-3 rounded-lg bg-neutral-950 border border-neutral-800 text-xs space-y-3 animate-in fade-in duration-150">
+              {hasMedia ? (
+                <div className="space-y-3">
+                  {pkg.media?.before_ricing && (
+                    <div>
+                      <span className="text-[10px] font-mono font-semibold uppercase text-neutral-400 block mb-1">
+                        Before Ricing (Vanilla Out-of-the-Box)
+                      </span>
+                      <p className="text-neutral-300 text-[11px] mb-1.5">
+                        {pkg.media.before_ricing.description}
+                      </p>
+                      <div className="p-2 rounded bg-neutral-900 border border-neutral-800 text-center text-neutral-500 font-mono text-[11px]">
+                        [{pkg.media.before_ricing.file}]
+                      </div>
+                    </div>
+                  )}
+
+                  {pkg.media?.after_ricing && pkg.media.after_ricing.length > 0 && (
+                    <div>
+                      <span className="text-[10px] font-mono font-semibold uppercase text-cyan-400 block mb-1">
+                        After Ricing (SimpleArch Minimal Baseline)
+                      </span>
+                      {pkg.media.after_ricing.map((example, idx) => (
+                        <div key={idx} className="mb-2 p-2 rounded bg-neutral-900/60 border border-neutral-800/80">
+                          <span className="font-semibold text-neutral-200 block text-xs">
+                            {example.title}
+                          </span>
+                          <span className="text-[11px] text-neutral-400 block mb-1.5">
+                            {example.description}
+                          </span>
+                          <div className="p-2 rounded bg-neutral-950 border border-neutral-800 text-center text-cyan-400/80 font-mono text-[11px]">
+                            [{example.type.toUpperCase()}: {example.file}]
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="text-center py-2 text-neutral-400">
+                  <p className="text-[11px] text-neutral-300 mb-1">
+                    No community showcase media uploaded for {pkg.name} yet.
+                  </p>
+                  <p className="text-[10px] text-neutral-500">
+                    Want to show your rice? Submit a screenshot/GIF in a contributor ZIP!
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Footer: Stability Score, Tags, External Links */}
+      {/* Footer: Stability Score, External Links */}
       <div className="pt-3 border-t border-neutral-800/80 flex items-center justify-between gap-2 text-xs">
         {/* Stability Rating */}
         <div className="flex items-center gap-1.5" title={`Stability: ${pkg.stabilityScore}/10`}>
@@ -141,7 +257,7 @@ export const PackageCard: React.FC<PackageCardProps> = ({
           </div>
         </div>
 
-        {/* Action Link */}
+        {/* Action Links */}
         <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
           {pkg.githubUrl && (
             <a

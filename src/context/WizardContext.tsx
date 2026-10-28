@@ -8,7 +8,7 @@ import {
   OMARCHY_PRESET_IDS,
   RECOMMENDED_PRESET_IDS
 } from "@/data/catalog";
-import { Category, PackageItem, SelectionManifest } from "@/types/catalog";
+import { Category, GpuDriver, PackageItem, SelectionManifest, SimpleArchMode } from "@/types/catalog";
 
 interface WizardContextType {
   selections: Record<string, string[]>;
@@ -211,10 +211,31 @@ export function WizardProvider({ children }: { children: React.ReactNode }) {
     const isWayland = (selections["display-protocol"] || []).includes("protocol-wayland");
     const isHandAssembled = (selections["desktop-architecture"] || []).includes("arch-hand-assembled");
 
+    const modeSelection = ((selections["installation-mode"] || [])[0] as SimpleArchMode) || "mode-2-minimal-recommended";
+    const gpuSelection = (selections["gpu-driver"] || [])[0] || "gpu-intel";
+    const gpuDriver: GpuDriver =
+      gpuSelection === "gpu-amd"
+        ? "amd"
+        : gpuSelection === "gpu-nvidia-dkms"
+        ? "nvidia-dkms"
+        : gpuSelection === "gpu-nvidia-open"
+        ? "nvidia-open"
+        : gpuSelection === "gpu-vm-virtio"
+        ? "vm-virtio"
+        : gpuSelection === "gpu-generic-skip"
+        ? "skip"
+        : "intel";
+
+    const isYay = (selections["aur-helper"] || []).includes("yay");
+
     return {
+      mode: modeSelection,
+      gpuDriver,
       protocol: isWayland ? "wayland" : "x11",
       architecture: isHandAssembled ? "hand-assembled" : "desktop-environment",
       selections,
+      aurHelper: isYay ? "yay-bin" : "paru-bin",
+      enableChaoticAur: false,
       timestamp: Date.now()
     };
   };

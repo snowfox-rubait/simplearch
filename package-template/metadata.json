@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "ExamplePackageName",
+  "category": "wm | de | bar | launcher | terminal | file-manager | notification | lock | wallpaper | utils",
+  "type": "Wayland-compositor | X11-WM | Desktop-Environment | TUI-Tool | GUI-App",
+  "protocol": "wayland | x11 | agnostic",
+  "description": "A clear, 2-3 sentence description of what this tool does, its philosophy, and why someone would choose it for their daily driver.",
+  "website_url": "https://example.org",
+  "github_url": "https://github.com/example/example",
+  "source": "repo | aur",
+  "packages": [
+    "example-package",
+    "optional-recommended-plugin"
+  ],
+  "tags": [
+    "verified",
+    "modern-hardware",
+    "old-hardware-friendly",
+    "minimal-memory",
+    "gpu-composited"
+  ],
+  "stability_score": 8,
+  "hardware_requirements": {
+    "ancient_hardware_friendly": true,
+    "gpu_compositing_required": false
+  },
+  "pros": [
+    "Lightweight and snappy performance",
+    "Easy to configure with plain text files",
+    "Active community support and well-documented"
+  ],
+  "cons": [
+    "Lacks GUI settings window (configured via text only)",
+    "Fewer pre-made community themes compared to alternatives"
+  ],
+  "compatibility": {
+    "supported_protocols": ["wayland"],
+    "conflicts": ["xorg-only-tools"],
+    "curated_pairings": {
+      "bar": "waybar",
+      "launcher": "rofi-wayland",
+      "terminal": "kitty",
+      "notification": "mako"
+    }
+  },
+  "media": {
+    "before_ricing": {
+      "description": "Default unconfigured appearance out of the box",
+      "file": "media/vanilla.png"
+    },
+    "after_ricing": [
+      {
+        "title": "Minimal Dark Rice",
+        "description": "Nordic color palette with clean font rendering",
+        "file": "media/riced-example-1.png",
+        "type": "image"
+      },
+      {
+        "title": "Dynamic Workflow Demo",
+        "description": "Short clip or GIF showing window switching and workspace animations",
+        "file": "media/demo.gif",
+        "type": "gif"
+      }
+    ]
+  }
+}
