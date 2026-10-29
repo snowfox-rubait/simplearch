@@ -1,0 +1,66 @@
+{
+  "id": "display-protocol",
+  "name": "Display Protocol",
+  "shortDesc": "Wayland vs X11 windowing protocol foundation",
+  "detailedDesc": "Wayland is the modern Linux graphics standard providing tear-free rendering, per-monitor scaling, and isolation. X11 is the battle-tested legacy display server protocol.",
+  "icon": "Monitor",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 3,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "protocol-wayland",
+      "name": "Wayland (Recommended)",
+      "packageName": "wayland",
+      "source": "repo",
+      "description": "Modern graphics protocol engine with native hardware vsync, multi-DPI, and Wayland surface isolation.",
+      "pros": [
+        "Zero screen tearing",
+        "Native fractional scaling",
+        "High-refresh multi-monitor support",
+        "Modern security sandbox"
+      ],
+      "cons": [
+        "Some older X11 screen recorders require portals or XWayland bridge"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "protocol",
+        "modern",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "websiteUrl": "https://wayland.freedesktop.org"
+    },
+    {
+      "id": "protocol-x11",
+      "name": "X11 / Xorg",
+      "packageName": "xorg-server",
+      "source": "repo",
+      "description": "Traditional X Window System server running X11 network protocol.",
+      "pros": [
+        "Universal compatibility with 30 years of Linux software",
+        "Simple global key grabbing"
+      ],
+      "cons": [
+        "Susceptible to tearing",
+        "Poor fractional scaling",
+        "Older security model"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "protocol",
+        "legacy"
+      ],
+      "recommended": false,
+      "websiteUrl": "https://x.org"
+    }
+  ]
+}

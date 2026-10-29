@@ -1,0 +1,88 @@
+{
+  "id": "git-tools",
+  "name": "Git & Version Control Interfaces",
+  "shortDesc": "Terminal and graphical consoles for managing branches, staging, and pull requests.",
+  "detailedDesc": "Interactive staging, interactive rebase, and GitHub CLI workflow.",
+  "icon": "GitBranch",
+  "phase": {
+    "id": "developer",
+    "title": "Developer Toolchains & CLI Ergonomics",
+    "description": "Modern Rust/Go coreutils replacements, Git interfaces, Docker container managers, and polyglot runtime toolchains.",
+    "order": 6
+  },
+  "order": 2,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "lazygit",
+      "name": "lazygit (Recommended TUI)",
+      "packageName": "lazygit",
+      "source": "repo",
+      "description": "High-performance interactive terminal UI for Git commands. Line-by-line staging, visual rebase, stash management, and conflict resolution.",
+      "pros": [
+        "Fastest git staging interface available",
+        "Keyboard driven interactive rebase",
+        "Visual branch hierarchy",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Keyboard-centric"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "git",
+        "tui",
+        "go",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/jesseduffield/lazygit"
+    },
+    {
+      "id": "github-cli",
+      "name": "GitHub CLI (`gh`) (Recommended)",
+      "packageName": "github-cli",
+      "source": "repo",
+      "description": "Official command line tool for GitHub to manage pull requests, issues, releases, and repository cloning.",
+      "pros": [
+        "Create and checkout PRs from terminal",
+        "Token authentication manager",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "GitHub specific"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "git",
+        "cli",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "gitui",
+      "name": "GitUI",
+      "packageName": "gitui",
+      "source": "repo",
+      "description": "Blazingly fast Git terminal UI written in Rust with microsecond responsiveness even in huge repositories.",
+      "pros": [
+        "Extreme speed and low CPU usage",
+        "Rust performance"
+      ],
+      "cons": [
+        "Slightly fewer advanced interactive rebase features than lazygit"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "git",
+        "rust",
+        "tui"
+      ],
+      "recommended": false
+    }
+  ]
+}

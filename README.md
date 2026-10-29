@@ -33,22 +33,23 @@ simplearch/
 │   ├── archinstall_guide_for_simplearch_website.md # Pre-install guide walkthrough text
 │   ├── simplearch_v6.md               # Original v6 architecture spec
 │   └── simplearch_package_research.md # 35+ category package research
+├── data/
+│   └── categories/                    # File-driven categories (42 independent JSON definitions)
+├── functions/                         # Cloudflare Pages Functions (Edge API & KV 24-hr script delivery)
+│   ├── api/script.ts                  # POST /api/script (Stores in KV, returns short code)
+│   └── s/[id]/install.sh.ts           # GET /s/:id/install.sh (Streams raw bash script)
 ├── guides/
 │   └── simplearch-guide/              # Layer 1: Standalone Pure Dark Mode Pre-Install Guide Site
-│       ├── index.html                 # 10-step guide with 78 terminal screenshots & contribute banner
-│       ├── styles.css                 # Pure dark mode styling (zero AI-slop)
-│       └── app.js                     # Step navigation & keyboard shortcuts (j/k)
-├── package-template/                  # Contributor package template
-│   ├── metadata.json                  # Schema for new package contributions
-│   ├── README.md                      # Contributor guide
-│   └── media/                         # Before/after ricing screenshots
-├── package-template.zip               # Pre-packaged contributor download
+├── scripts/
+│   └── compile-catalog.mjs            # Auto-discovers and compiles data/categories/*.json
+├── tests/
+│   └── logic.test.ts                  # Automated unit test suite (10/10 tests)
 └── src/                               # Layer 2: Next.js Interactive Selector & Script Engine
-    ├── types/catalog.ts               # Manifest, package, and media TypeScript schemas
-    ├── data/catalog.ts                # 35+ category database (modes, drivers, packages)
-    ├── context/WizardContext.tsx      # State management and presets
-    ├── lib/scriptGenerator.ts         # POSIX shell script generator engine
-    └── components/wizard/             # UI components, cards, modal, and script preview
+    ├── types/catalog.ts               # Manifest, category, package TypeScript schemas
+    ├── context/CatalogContext.tsx     # State management, presets, and edge generator
+    ├── lib/catalogLoader.ts           # Dynamic loader, dependency gating, and selection pruner
+    ├── lib/scriptEngine.ts            # Data-driven POSIX shell script generation engine
+    └── components/wiki/               # Minimal ArchWiki-inspired two-column layout
 ```
 
 ---

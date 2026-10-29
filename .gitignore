@@ -44,3 +44,4 @@ next-env.d.ts
 .site.log
 .site.pid
 *.zip
+archive/

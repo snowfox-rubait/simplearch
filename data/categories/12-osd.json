@@ -1,0 +1,68 @@
+{
+  "id": "osd",
+  "name": "On-Screen Display (OSD) Overlays",
+  "shortDesc": "Smooth volume, mute, brightness, and caps-lock floating popups.",
+  "detailedDesc": "Essential quality-of-life component: displays visual indicators when adjusting volume keys or screen brightness.",
+  "icon": "Volume2",
+  "phase": {
+    "id": "shell",
+    "title": "Desktop Shell & Core Plumbings",
+    "description": "Status bars, launchers, notification systems, on-screen displays, and wallpaper managers.",
+    "order": 2
+  },
+  "order": 4,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "swayosd",
+      "name": "SwayOSD (Recommended)",
+      "packageName": "swayosd-git",
+      "source": "aur",
+      "description": "Modern OSD window for keyboard shortcuts (volume up/down, microphone mute, brightness, caps-lock) using libadwaita styling.",
+      "pros": [
+        "Sleek pill-shaped overlay",
+        "Audio volume and brightness curves",
+        "Caps lock and num lock indicator",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires libadwaita/GTK4 dependencies"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk4",
+        "qol",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/ErikReider/SwayOSD"
+    },
+    {
+      "id": "avizo",
+      "name": "Avizo",
+      "packageName": "avizo",
+      "source": "aur",
+      "description": "Neat notification-daemon-like utility for multimedia keys on Wayland.",
+      "pros": [
+        "Simple configuration",
+        "Smooth progress bars"
+      ],
+      "cons": [
+        "Less actively maintained than SwayOSD"
+      ],
+      "stabilityScore": 7,
+      "tags": [
+        "wayland",
+        "c"
+      ],
+      "recommended": false
+    }
+  ]
+}

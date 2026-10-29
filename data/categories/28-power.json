@@ -1,0 +1,79 @@
+{
+  "id": "power",
+  "name": "Power & Battery Management",
+  "shortDesc": "CPU frequency scaling, battery thresholds, and thermal power profiles.",
+  "detailedDesc": "Essential for laptops to optimize battery life and quiet fan acoustics.",
+  "icon": "BatteryCharging",
+  "phase": {
+    "id": "hardware",
+    "title": "Audio, Hardware & Connectivity",
+    "description": "PipeWire audio stack, Bluetooth, NetworkManager, screen brightness, and power management.",
+    "order": 4
+  },
+  "order": 5,
+  "selectionType": "single",
+  "optional": true,
+  "packages": [
+    {
+      "id": "power-profiles-daemon",
+      "name": "power-profiles-daemon (Recommended)",
+      "packageName": "power-profiles-daemon",
+      "source": "repo",
+      "description": "Modern power state controller providing Power Saver, Balanced, and Performance modes. Native integration with SwayNC and Waybar.",
+      "pros": [
+        "Standard desktop D-Bus power interface",
+        "Instant switching between quiet battery and high performance"
+      ],
+      "cons": [
+        "Less granular manual tuning than TLP"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "power",
+        "modern",
+        "recommended"
+      ],
+      "recommended": true
+    },
+    {
+      "id": "auto-cpufreq",
+      "name": "auto-cpufreq",
+      "packageName": "auto-cpufreq",
+      "source": "aur",
+      "description": "Automatic CPU speed and power optimizer for Linux laptops based on live system load.",
+      "pros": [
+        "Intelligently scales governor based on battery vs AC status",
+        "Active development"
+      ],
+      "cons": [
+        "Conflicts with power-profiles-daemon"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "laptop",
+        "cpu"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "tlp",
+      "name": "TLP",
+      "packageName": "tlp",
+      "source": "repo",
+      "description": "Advanced power management daemon for Linux laptops with extensive battery thresholds.",
+      "pros": [
+        "Dozens of granular kernel and hardware power toggles",
+        "ThinkPad battery charge thresholds"
+      ],
+      "cons": [
+        "Extensive configuration file"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "power",
+        "advanced"
+      ],
+      "recommended": false
+    }
+  ]
+}

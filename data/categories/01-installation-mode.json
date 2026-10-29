@@ -1,0 +1,107 @@
+{
+  "id": "installation-mode",
+  "name": "Installation Mode",
+  "shortDesc": "Choose your setup path and archinstall profile context",
+  "detailedDesc": "Mode 2 (Minimal) is the recommended clean canvas. Mode 1 is for post-install additions on top of an existing desktop. Mode 3 replaces a DE, and Mode 4 is tailored for ancient legacy hardware.",
+  "icon": "Compass",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 1,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "mode-2-minimal-recommended",
+      "name": "Mode 2: Minimal Base + SimpleArch (Recommended)",
+      "packageName": "minimal-base",
+      "source": "repo",
+      "description": "Official archinstall with the Minimal profile. SimpleArch manages GPU drivers, compositor, modular shell daemons, and baseline dotfiles without conflicts.",
+      "pros": [
+        "Zero package collisions or pre-installed bloat",
+        "Complete control over GPU driver stack and Wayland engine",
+        "Non-destructive dotfile backups with .bak extensions"
+      ],
+      "cons": [
+        "Requires post-install script run on first reboot into Arch"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "recommended",
+        "clean-slate",
+        "verified"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "mode-1-desktop-postinstall",
+      "name": "Mode 1: Desktop Profile Post-Install",
+      "packageName": "desktop-postinstall",
+      "source": "repo",
+      "description": "For systems where 'Desktop' (e.g. GNOME, KDE, or Hyprland) was chosen during archinstall. SimpleArch only adds ricing enhancements, dev tools, and utilities.",
+      "pros": [
+        "Boot directly into a working desktop before running script",
+        "Preserves existing desktop settings"
+      ],
+      "cons": [
+        "May result in duplicate utilities (e.g. multiple terminals or launchers)"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "existing-desktop",
+        "standard"
+      ]
+    },
+    {
+      "id": "mode-3-replace-existing",
+      "name": "Mode 3: Replace Existing Profile Choices",
+      "packageName": "replace-existing",
+      "source": "repo",
+      "description": "Replaces an already installed desktop profile. Deactivates conflicting display managers and deploys the selected SimpleArch stack.",
+      "pros": [
+        "Saves time compared to full disk re-partitioning and reinstallation"
+      ],
+      "cons": [
+        "Risk of leftover orphan config files",
+        "May require manual cleanup of old display managers"
+      ],
+      "stabilityScore": 7,
+      "tags": [
+        "destructive-swap",
+        "advanced"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "mode-4-ancient-hardware",
+      "name": "Mode 4: Ancient Hardware Mode",
+      "packageName": "ancient-hardware",
+      "source": "repo",
+      "description": "Tailored for legacy dual-core CPUs (Core 2 Duo / Pentium), non-Vulkan iGPUs, and low RAM (<=4GB). Recommends pure X11, lz4 zram, and lightweight tools.",
+      "pros": [
+        "Smooth performance on 10-15 year old machines",
+        "Sub-200MB idle RAM footprint",
+        "Zero GPU compositing overhead"
+      ],
+      "cons": [
+        "No Wayland features (touchpad gestures, fractional scaling)",
+        "Simpler retro aesthetics"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "old-hardware-friendly",
+        "legacy",
+        "verified",
+        "minimal-memory"
+      ],
+      "hardwareRequirements": {
+        "ancient_hardware_friendly": true,
+        "gpu_compositing_required": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "id": "fonts",
+  "name": "Fonts, Typography & Nerd Font Glyphs",
+  "shortDesc": "Monospace coding fonts, universal glyph sets, and icon symbol patches.",
+  "detailedDesc": "Essential for status bars, terminal prompts (Starship/Powerlevel10k), and coding editors.",
+  "icon": "Type",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 9,
+  "selectionType": "multi",
+  "optional": false,
+  "packages": [
+    {
+      "id": "ttf-jetbrains-mono-nerd",
+      "name": "JetBrains Mono Nerd Font (Recommended)",
+      "packageName": "ttf-jetbrains-mono-nerd",
+      "source": "repo",
+      "description": "The gold standard coding font, patched with thousands of Nerd Font developer icons, folder glyphs, and status symbols.",
+      "pros": [
+        "Superb programming ligatures",
+        "Extremely readable at all sizes",
+        "Includes complete Nerd Font symbol set",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Large package size"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "fonts",
+        "nerd-fonts",
+        "monospace",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "noto-fonts-bundle",
+      "name": "Google Noto Fonts + CJK + Emoji (Recommended)",
+      "packageName": "noto-fonts",
+      "source": "repo",
+      "description": "Google's universal typographic system. Includes standard typefaces, full Asian character coverage (CJK), and color emoji support.",
+      "pros": [
+        "Eliminates missing character squares (tofu)",
+        "Universal foreign typography support",
+        "Color emoji rendering in terminals"
+      ],
+      "cons": [
+        "Multi-gigabyte disk footprint for complete international bundle"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "fonts",
+        "international",
+        "emoji",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "woff2-font-awesome",
+      "name": "Font Awesome Glyphs",
+      "packageName": "woff2-font-awesome",
+      "source": "repo",
+      "description": "Web and desktop icon typeface used by many Waybar and eww status bar configs.",
+      "pros": [
+        "Extensive battery, Wi-Fi, and volume symbol glyphs"
+      ],
+      "cons": [
+        "Redundant if using Nerd Fonts"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "fonts",
+        "icons"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "ttf-fira-code",
+      "name": "Fira Code",
+      "packageName": "ttf-fira-code",
+      "source": "repo",
+      "description": "Monospaced font with programming ligatures for operators like =>, <=, !=.",
+      "pros": [
+        "Beautiful coding ligatures"
+      ],
+      "cons": [
+        "Requires separate nerd font patch for icons"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "fonts",
+        "coding"
+      ],
+      "recommended": false
+    }
+  ]
+}

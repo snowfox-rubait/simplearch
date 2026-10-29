@@ -1,0 +1,127 @@
+{
+  "id": "audio-stack",
+  "name": "Audio Server & Control Utilities",
+  "shortDesc": "Next-gen low-latency multimedia routing engine, volume GUI, and parametric equalizers.",
+  "detailedDesc": "PipeWire replaces PulseAudio and JACK with professional low-latency routing.",
+  "icon": "Headphones",
+  "phase": {
+    "id": "hardware",
+    "title": "Audio, Hardware & Connectivity",
+    "description": "PipeWire audio stack, Bluetooth, NetworkManager, screen brightness, and power management.",
+    "order": 4
+  },
+  "order": 1,
+  "selectionType": "multi",
+  "optional": false,
+  "packages": [
+    {
+      "id": "pipewire-wireplumber",
+      "name": "PipeWire + WirePlumber (Recommended Core)",
+      "packageName": "pipewire",
+      "source": "repo",
+      "description": "Modern multimedia daemon with ALSA, PulseAudio, and JACK compatibility layers, managed by WirePlumber policy engine.",
+      "pros": [
+        "Lowest latency audio routing",
+        "Seamless Bluetooth LDAC/AptX codec support",
+        "Universal Linux standard",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "audio",
+        "core",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "pavucontrol",
+      "name": "Pavucontrol (GTK Volume GUI) (Recommended)",
+      "packageName": "pavucontrol",
+      "source": "repo",
+      "description": "Standard PulseAudio/PipeWire volume control GUI for per-application audio routing and device switching.",
+      "pros": [
+        "Simple per-app volume sliders",
+        "Quick output device switching",
+        "Rock-solid stability"
+      ],
+      "cons": [
+        "Classic GTK interface"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "audio",
+        "gui",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "pwvucontrol",
+      "name": "pwvucontrol",
+      "packageName": "pwvucontrol",
+      "source": "repo",
+      "description": "Native PipeWire volume control written in Rust and GTK4 with responsive VU meters.",
+      "pros": [
+        "Modern GTK4 interface",
+        "Direct PipeWire native API integration"
+      ],
+      "cons": [
+        "Slightly newer project than pavucontrol"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "rust",
+        "gtk4",
+        "pipewire"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "easyeffects",
+      "name": "EasyEffects",
+      "packageName": "easyeffects",
+      "source": "repo",
+      "description": "Advanced audio effects, equalizers, noise reduction, and compressors for PipeWire.",
+      "pros": [
+        "Studio-grade microphone noise cancellation (RNNoise)",
+        "Bass boost & parametric EQ presets"
+      ],
+      "cons": [
+        "Higher CPU usage when multiple DSP plugins are active"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "dsp",
+        "equalizer"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "wiremix",
+      "name": "wiremix (TUI PipeWire Mixer)",
+      "packageName": "wiremix-git",
+      "source": "aur",
+      "description": "Terminal user interface for PipeWire audio routing and volume levels.",
+      "pros": [
+        "Keyboard driven mixer inside your terminal",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "tui",
+        "audio"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id": "screen-recorder",
+  "name": "Hardware Screen Recording & Streaming",
+  "shortDesc": "GPU-accelerated video capture of your desktop or specific application windows.",
+  "detailedDesc": "Capture gameplay or desktop demonstrations without dropping frame rates.",
+  "icon": "Video",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 4,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "gpu-screen-recorder",
+      "name": "GPU Screen Recorder (Recommended)",
+      "packageName": "gpu-screen-recorder",
+      "source": "aur",
+      "description": "Extremely fast screen recorder utilizing NVENC/AMF/VAAPI hardware video encoders. Records with nearly 0% CPU overhead like ShadowPlay.",
+      "pros": [
+        "Almost zero performance impact while gaming",
+        "Hardware video encoding",
+        "Instant replay buffer support",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gpu",
+        "hardware",
+        "recording",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://git.dec05eba.com/gpu-screen-recorder"
+    },
+    {
+      "id": "wf-recorder",
+      "name": "wf-recorder",
+      "packageName": "wf-recorder",
+      "source": "repo",
+      "description": "Simple CLI screen recorder for wlroots-based Wayland compositors using ffmpeg backends.",
+      "pros": [
+        "Lightweight CLI tool",
+        "Select region with slurp"
+      ],
+      "cons": [
+        "No replay buffer; manual terminal invocation"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "cli",
+        "ffmpeg"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "obs-studio",
+      "name": "OBS Studio",
+      "packageName": "obs-studio",
+      "source": "repo",
+      "description": "Professional open source software for video recording and live streaming with full PipeWire audio/video capture support.",
+      "pros": [
+        "Complete studio mixing",
+        "Multi-source scene layouts",
+        "Virtual webcam output"
+      ],
+      "cons": [
+        "Heavyweight application"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "streaming",
+        "professional"
+      ],
+      "recommended": false
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "id": "launcher",
+  "name": "Application Launcher & Command Palette",
+  "shortDesc": "Search menu for binary launching, window switching, and script actions.",
+  "detailedDesc": "Modal popup triggered via keyboard chords (e.g. Super + Space).",
+  "icon": "Search",
+  "phase": {
+    "id": "shell",
+    "title": "Desktop Shell & Core Plumbings",
+    "description": "Status bars, launchers, notification systems, on-screen displays, and wallpaper managers.",
+    "order": 2
+  },
+  "order": 2,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "walker",
+      "name": "Walker (Recommended)",
+      "packageName": "walker",
+      "source": "aur",
+      "description": "Extremely fast, extensible application runner and clipboard/command launcher written in Go with layer-shell integration.",
+      "pros": [
+        "Blazing fast fuzzy search",
+        "Built-in clipboard, runner, and calc modules",
+        "Modern UI with GTK4/layer-shell",
+        "Custom plugin support"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "go",
+        "wayland",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/abenz1267/walker"
+    },
+    {
+      "id": "rofi-wayland",
+      "name": "Rofi (Wayland Fork)",
+      "packageName": "rofi-wayland",
+      "source": "repo",
+      "description": "Direct Wayland port of the classic Rofi window switcher, run dialog, and dmenu replacement.",
+      "pros": [
+        "Vast universe of existing Rofi themes",
+        "Full dmenu compatibility",
+        "Official Arch extra repo package"
+      ],
+      "cons": [
+        "Older theme syntax format"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "wayland",
+        "classic",
+        "themes"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/lbonn/rofi"
+    },
+    {
+      "id": "fuzzel",
+      "name": "Fuzzel",
+      "packageName": "fuzzel",
+      "source": "repo",
+      "description": "Wayland-native application launcher built specifically for wlroots compositors. Zero bloat, instant startup.",
+      "pros": [
+        "Starts in 5ms",
+        "Clean aesthetic",
+        "Extremely tiny binary and minimal memory footprint"
+      ],
+      "cons": [
+        "Less customizable layout styling than Walker or Rofi"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "wayland",
+        "c",
+        "minimalist"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "tofi",
+      "name": "Tofi",
+      "packageName": "tofi",
+      "source": "repo",
+      "description": "Tiny, dynamic, pixel-perfect dmenu replacement for Wayland.",
+      "pros": [
+        "Super lightweight",
+        "Fast keyboard navigation"
+      ],
+      "cons": [
+        "Strictly text-focused; minimal icon support"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "minimal",
+        "c"
+      ],
+      "recommended": false
+    }
+  ]
+}

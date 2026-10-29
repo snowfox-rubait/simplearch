@@ -1,0 +1,63 @@
+{
+  "id": "brightness",
+  "name": "Backlight & Display Brightness Control",
+  "shortDesc": "Utilities to adjust internal laptop displays and external monitor brightness.",
+  "detailedDesc": "Allows smooth keyboard backlight and monitor dimming.",
+  "icon": "Sun",
+  "phase": {
+    "id": "hardware",
+    "title": "Audio, Hardware & Connectivity",
+    "description": "PipeWire audio stack, Bluetooth, NetworkManager, screen brightness, and power management.",
+    "order": 4
+  },
+  "order": 4,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "brightnessctl",
+      "name": "brightnessctl (Recommended)",
+      "packageName": "brightnessctl",
+      "source": "repo",
+      "description": "Lightweight CLI tool that controls device backlight without requiring root permissions via udev rules.",
+      "pros": [
+        "Instant response time",
+        "Smooth percentage stepping",
+        "Zero daemon overhead",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "CLI only (binds to function keys)"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "hardware",
+        "backlight",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "asdcontrol",
+      "name": "asdcontrol",
+      "packageName": "asdcontrol-git",
+      "source": "aur",
+      "description": "Hardware controller for Apple Studio Display and external DDC/CI monitor brightness on Linux.",
+      "pros": [
+        "Controls Apple Studio Display hardware brightness directly",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Specialized hardware target"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "hardware",
+        "apple"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    }
+  ]
+}

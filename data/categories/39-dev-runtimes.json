@@ -1,0 +1,62 @@
+{
+  "id": "dev-runtimes",
+  "name": "Polyglot Runtimes & Version Managers",
+  "shortDesc": "Manage multiple versions of Node, Python, Rust, and Go without version conflicts.",
+  "detailedDesc": "Fast environment manager that replaces nvm, pyenv, rbenv, and sdkman with one unified tool.",
+  "icon": "Wrench",
+  "phase": {
+    "id": "developer",
+    "title": "Developer Toolchains & CLI Ergonomics",
+    "description": "Modern Rust/Go coreutils replacements, Git interfaces, Docker container managers, and polyglot runtime toolchains.",
+    "order": 6
+  },
+  "order": 4,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "mise",
+      "name": "mise (Recommended Polyglot Tool Manager)",
+      "packageName": "mise",
+      "source": "repo",
+      "description": "Front-end to your dev environment. Polyglot tool version manager (Node, Python, Go, Rust, Ruby) written in Rust. Fast, clean, and modern.",
+      "pros": [
+        "Replaces nvm, pyenv, rustup, and goenv with 1 high-speed binary",
+        "Shims-less environment activation",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Newer project than asdf"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "runtimes",
+        "rust",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://mise.jdx.dev"
+    },
+    {
+      "id": "rust-toolchain",
+      "name": "Rust & Cargo Toolchain",
+      "packageName": "rust",
+      "source": "repo",
+      "description": "Official Rust programming language compiler and Cargo package manager.",
+      "pros": [
+        "Essential for compiling Arch AUR packages from source",
+        "Memory safety and high performance"
+      ],
+      "cons": [
+        "Large compiler download"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "rust",
+        "compiler"
+      ],
+      "recommended": false
+    }
+  ]
+}

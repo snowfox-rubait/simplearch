@@ -1,0 +1,106 @@
+{
+  "id": "display-manager",
+  "name": "Display & Login Manager",
+  "shortDesc": "Graphical or console login greeter launched at boot time.",
+  "detailedDesc": "Handles user authentication, PAM session creation, and launches your compositor via systemd session wrappers.",
+  "icon": "KeyRound",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 7,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "greetd-tuigreet",
+      "name": "greetd + tuigreet (Recommended)",
+      "packageName": "greetd",
+      "source": "repo",
+      "description": "Extremely lightweight, minimal login daemon paired with a fast Rust-based TUI console greeter.",
+      "pros": [
+        "Instantaneous boot time",
+        "Clean terminal aesthetics",
+        "Runs Wayland compositors cleanly without display server overhead"
+      ],
+      "cons": [
+        "Text-mode console interface rather than graphical mouse avatar UI"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "tui",
+        "greetd",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "targetConfigPath": "/etc/greetd/config.toml"
+    },
+    {
+      "id": "sddm",
+      "name": "SDDM",
+      "packageName": "sddm",
+      "source": "repo",
+      "description": "Qt-based graphical login manager supporting both X11 and Wayland sessions with themes.",
+      "pros": [
+        "Rich theme support",
+        "Native Qt integration",
+        "User avatars and session switchers"
+      ],
+      "cons": [
+        "Heavier dependencies than greetd"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gui",
+        "qt6",
+        "display-manager"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "ly",
+      "name": "Ly Display Manager",
+      "packageName": "ly",
+      "source": "aur",
+      "description": "Compact ncurses-like TUI display manager with a retro terminal matrix aesthetic.",
+      "pros": [
+        "Lightweight C implementation",
+        "Retro console look"
+      ],
+      "cons": [
+        "AUR package on Arch Linux"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "tui",
+        "aur",
+        "retro"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "no-dm",
+      "name": "Manual TTY Login (No Display Manager)",
+      "packageName": "none",
+      "source": "repo",
+      "description": "Log in through standard Linux TTY and launch Hyprland/Sway using `uwsm` or `~/.bash_profile`.",
+      "pros": [
+        "Absolute zero background daemon overhead",
+        "Total control over startup environment"
+      ],
+      "cons": [
+        "Must type `start-hyprland` or configure login script"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "manual",
+        "tty",
+        "minimal"
+      ],
+      "recommended": false
+    }
+  ]
+}

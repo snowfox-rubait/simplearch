@@ -1,0 +1,83 @@
+{
+  "id": "bluetooth",
+  "name": "Bluetooth Management",
+  "shortDesc": "Bluetooth stack, headset pairing, and connection applets.",
+  "detailedDesc": "Provides BlueZ daemon, audio profile switching, and connection GUIs/TUIs.",
+  "icon": "Bluetooth",
+  "phase": {
+    "id": "hardware",
+    "title": "Audio, Hardware & Connectivity",
+    "description": "PipeWire audio stack, Bluetooth, NetworkManager, screen brightness, and power management.",
+    "order": 4
+  },
+  "order": 3,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "blueman",
+      "name": "bluez + blueman (Recommended)",
+      "packageName": "blueman",
+      "source": "repo",
+      "description": "Full-featured GTK Bluetooth manager and tray applet. Seamless pairing for wireless headphones, keyboards, and mice.",
+      "pros": [
+        "Quick pairing modal",
+        "Audio profile switcher (A2DP / HFP)",
+        "Tray icon for Waybar",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "GTK3 interface"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "bluetooth",
+        "gui",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "overskride",
+      "name": "Overskride",
+      "packageName": "overskride",
+      "source": "repo",
+      "description": "Modern Bluetooth client written in Rust and GTK4/libadwaita.",
+      "pros": [
+        "Beautiful modern UI",
+        "Clean device information inspector"
+      ],
+      "cons": [
+        "No persistent system tray applet"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "rust",
+        "gtk4"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "bluetui",
+      "name": "bluetui (TUI Bluetooth Manager)",
+      "packageName": "bluetui-bin",
+      "source": "aur",
+      "description": "Ratatui-based interactive terminal client for managing Bluetooth devices.",
+      "pros": [
+        "Fast keyboard navigation in terminal",
+        "Included in OmarchyOS manifest"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "tui",
+        "rust"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    }
+  ]
+}

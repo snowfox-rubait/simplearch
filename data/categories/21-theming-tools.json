@@ -1,0 +1,65 @@
+{
+  "id": "theming-tools",
+  "name": "Theming & Appearance Configuration",
+  "shortDesc": "GUIs to configure GTK themes, Qt styles, cursor sizing, and fonts across all desktop toolkits.",
+  "detailedDesc": "Ensures uniform dark mode, typography, and icon themes across both GTK and Qt software.",
+  "icon": "Palette",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 7,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "nwg-look",
+      "name": "nwg-look (Recommended)",
+      "packageName": "nwg-look",
+      "source": "repo",
+      "description": "GTK3/GTK4 settings editor designed specifically for Wayland compositors. Sets GTK themes, icon packs, cursors, and fonts without GNOME dependencies.",
+      "pros": [
+        "Wayland-native",
+        "Directly writes to xsettingsd and gsettings",
+        "Applies immediately",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "GTK only (use qt6ct for Qt)"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk",
+        "theming",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/nwg-piotr/nwg-look"
+    },
+    {
+      "id": "qt6ct-kvantum",
+      "name": "qt6ct + kvantum (Recommended)",
+      "packageName": "qt6ct",
+      "source": "repo",
+      "description": "Qt6 configuration tool paired with Kvantum SVG theme engine to give Qt applications unified dark themes.",
+      "pros": [
+        "Unifies Qt apps with GTK styling",
+        "Kvantum SVG engine enables custom blur and opacity"
+      ],
+      "cons": [
+        "Requires exporting QT_QPA_PLATFORMTHEME=qt6ct in environment"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "qt6",
+        "kvantum",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    }
+  ]
+}

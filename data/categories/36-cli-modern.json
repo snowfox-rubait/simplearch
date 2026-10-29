@@ -1,0 +1,200 @@
+{
+  "id": "cli-modern",
+  "name": "Modern CLI Coreutils (Rust & Go Ergonomics)",
+  "shortDesc": "Blazingly fast replacements for cat, ls, grep, find, cd, and du.",
+  "detailedDesc": "Essential CLI upgrade: replaces 1970s Unix coreutils with high-speed, syntax-highlighted modern alternatives.",
+  "icon": "Sparkle",
+  "phase": {
+    "id": "developer",
+    "title": "Developer Toolchains & CLI Ergonomics",
+    "description": "Modern Rust/Go coreutils replacements, Git interfaces, Docker container managers, and polyglot runtime toolchains.",
+    "order": 6
+  },
+  "order": 1,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "bat",
+      "name": "bat (Syntax-highlighted cat) (Recommended)",
+      "packageName": "bat",
+      "source": "repo",
+      "description": "Cat clone with syntax highlighting for hundreds of languages, Git modifications, and automatic paging.",
+      "pros": [
+        "Automatic language syntax highlighting",
+        "Shows git diff gutters",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "rust",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "eza",
+      "name": "eza (Modern ls with Git status) (Recommended)",
+      "packageName": "eza",
+      "source": "repo",
+      "description": "Modern replacement for ls with file icons, recursive tree views, and live Git repository status indicators.",
+      "pros": [
+        "Visual file icons",
+        "Tree view mode",
+        "Integrated Git status flags",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "rust",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "ripgrep",
+      "name": "ripgrep (Fast recursive grep) (Recommended)",
+      "packageName": "ripgrep",
+      "source": "repo",
+      "description": "Ultra-fast line-oriented search tool that respects .gitignore rules by default.",
+      "pros": [
+        "Fastest code search tool available",
+        "Respects gitignore",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "rust",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "fd",
+      "name": "fd (Fast user-friendly find) (Recommended)",
+      "packageName": "fd",
+      "source": "repo",
+      "description": "Simple, fast and user-friendly alternative to find with colorized terminal output.",
+      "pros": [
+        "Intuitive syntax (fd pattern)",
+        "Parallel directory traversal",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "rust",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "zoxide",
+      "name": "zoxide (Smarter cd command) (Recommended)",
+      "packageName": "zoxide",
+      "source": "repo",
+      "description": "Smarter cd command that remembers your most frequently accessed directories and jumps instantly with frecency scoring.",
+      "pros": [
+        "Jump to nested paths in 2 keystrokes (`z myproj`)",
+        "Universal shell support (bash/zsh/fish)",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires adding 1 eval line to shell rc"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "rust",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "fzf",
+      "name": "fzf (General purpose fuzzy finder) (Recommended)",
+      "packageName": "fzf",
+      "source": "repo",
+      "description": "Interactive command-line fuzzy finder for history, file paths, and shell completions.",
+      "pros": [
+        "Fuzzy search command history (Ctrl+R)",
+        "Interactive file search (Ctrl+T)",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "go",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "jq",
+      "name": "jq (JSON query processor) (Recommended)",
+      "packageName": "jq",
+      "source": "repo",
+      "description": "Command-line JSON processor and filter engine.",
+      "pros": [
+        "Standard tool for shell scripting with API payloads",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "json",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "dust",
+      "name": "dust (Graphical disk usage du)",
+      "packageName": "dust",
+      "source": "repo",
+      "description": "Visual du clone that renders bar graphs showing where your disk storage is going.",
+      "pros": [
+        "Instant visual intuition for disk hogs",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cli",
+        "rust"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    }
+  ]
+}

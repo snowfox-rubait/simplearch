@@ -1,0 +1,43 @@
+{
+  "id": "color-picker",
+  "name": "Screen Color Picker & Eyedropper",
+  "shortDesc": "Sample hex/RGB pixel colors directly from your screen with auto-clipboard copy.",
+  "detailedDesc": "Invaluable for web development, ricing, and design work: click any pixel on your monitor to grab its hex code.",
+  "icon": "Pipette",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 2,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "hyprpicker",
+      "name": "hyprpicker (Recommended)",
+      "packageName": "hyprpicker",
+      "source": "repo",
+      "description": "GPU-accelerated Wayland color picker with circular magnified lens preview, multiple format outputs (HEX, RGB, HSL), and automatic clipboard copy.",
+      "pros": [
+        "Magnified pixel lens overlay",
+        "Instantaneous response",
+        "Copies directly to clipboard",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Wayland only"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "wayland",
+        "qol",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/hyprwm/hyprpicker"
+    }
+  ]
+}

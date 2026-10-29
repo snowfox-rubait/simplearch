@@ -1,0 +1,114 @@
+{
+  "id": "desktop-environment",
+  "name": "Integrated Desktop Environment",
+  "shortDesc": "Select which complete desktop suite to deploy.",
+  "detailedDesc": "Only active if Full Desktop Environment was selected above. Skips downstream standalone bar and launcher steps.",
+  "icon": "LayoutGrid",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 5,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-full-de",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "de-plasma",
+      "name": "KDE Plasma 6",
+      "packageName": "plasma-meta",
+      "source": "repo",
+      "description": "Next-gen Qt6-based desktop environment featuring KWin compositor and extreme graphical customizability.",
+      "pros": [
+        "Wayland-first",
+        "Exceptional multi-monitor and HDR support",
+        "Extensive settings GUI"
+      ],
+      "cons": [
+        "Higher resource footprint than standalone tiling WMs"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "qt6",
+        "wayland",
+        "desktop-suite"
+      ],
+      "recommended": true,
+      "websiteUrl": "https://kde.org/plasma-desktop/"
+    },
+    {
+      "id": "de-gnome",
+      "name": "GNOME 46+",
+      "packageName": "gnome",
+      "source": "repo",
+      "description": "Minimalist, gesture-driven GTK4 desktop using Mutter Wayland compositor.",
+      "pros": [
+        "Polished trackpad gestures",
+        "Clean aesthetics",
+        "Vibrant extension ecosystem"
+      ],
+      "cons": [
+        "Rigid UX defaults",
+        "Extensions can break between major updates"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk4",
+        "wayland",
+        "desktop-suite"
+      ],
+      "recommended": false,
+      "websiteUrl": "https://www.gnome.org"
+    },
+    {
+      "id": "de-cosmic",
+      "name": "System76 COSMIC Desktop",
+      "packageName": "cosmic-session",
+      "source": "aur",
+      "description": "Brand new Rust-based modular Wayland desktop environment engineered by System76.",
+      "pros": [
+        "Memory-safe Rust architecture",
+        "Native Wayland applets and hybrid tiling"
+      ],
+      "cons": [
+        "Rapidly developing alpha/beta status"
+      ],
+      "stabilityScore": 7,
+      "tags": [
+        "rust",
+        "wayland",
+        "modern"
+      ],
+      "recommended": false,
+      "websiteUrl": "https://system76.com/cosmic"
+    },
+    {
+      "id": "de-xfce",
+      "name": "Xfce 4",
+      "packageName": "xfce4",
+      "source": "repo",
+      "description": "Lightweight, traditional GTK-based desktop environment for supreme efficiency.",
+      "pros": [
+        "Rock-solid stability",
+        "Extremely low RAM usage",
+        "Traditional desktop metaphor"
+      ],
+      "cons": [
+        "Historically X11-centric (Wayland transition in progress)"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk",
+        "lightweight"
+      ],
+      "recommended": false,
+      "websiteUrl": "https://xfce.org"
+    }
+  ]
+}

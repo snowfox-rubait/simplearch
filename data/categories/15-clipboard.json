@@ -1,0 +1,86 @@
+{
+  "id": "clipboard",
+  "name": "Clipboard History & Managers",
+  "shortDesc": "Keeps history of copied text, images, and snippets with quick search modal.",
+  "detailedDesc": "Small convenience that transforms daily workflow: press Super + V to search and paste previous clips.",
+  "icon": "Clipboard",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 1,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "cliphist",
+      "name": "cliphist + wl-clipboard (Recommended)",
+      "packageName": "cliphist",
+      "source": "repo",
+      "description": "Wayland clipboard manager that stores text, images, and binary clips. Integrates seamlessly into Walker or Rofi fuzzy launchers.",
+      "pros": [
+        "Supports both rich text and PNG/JPEG image previews",
+        "Integrates into any launcher (Walker/Rofi)",
+        "Zero memory leaks",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires a launcher frontend to display history UI"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "clipboard",
+        "wayland",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/sentriz/cliphist"
+    },
+    {
+      "id": "clipse",
+      "name": "clipse (TUI Clipboard Manager)",
+      "packageName": "clipse-bin",
+      "source": "aur",
+      "description": "Keyboard-driven standalone TUI clipboard manager built in Go. Pops up in a small floating terminal scratchpad.",
+      "pros": [
+        "Built-in sleek TUI interface",
+        "Custom preview windows",
+        "Independent of external launchers"
+      ],
+      "cons": [
+        "Requires configuring a floating terminal window rule"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "tui",
+        "go",
+        "standalone"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/savedra1/clipse"
+    },
+    {
+      "id": "clipman",
+      "name": "clipman",
+      "packageName": "clipman",
+      "source": "repo",
+      "description": "Simple, lightweight clipboard manager for Wayland focused purely on text snippets.",
+      "pros": [
+        "Minimalist",
+        "Low footprint"
+      ],
+      "cons": [
+        "Does not preserve image clipboard data"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "wayland",
+        "text-only"
+      ],
+      "recommended": false
+    }
+  ]
+}

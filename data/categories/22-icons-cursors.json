@@ -1,0 +1,83 @@
+{
+  "id": "icons-cursors",
+  "name": "Icon & Cursor Theme Packs",
+  "shortDesc": "Curated vector icon bundles and high-DPI cursor themes.",
+  "detailedDesc": "A polished rice requires consistent vector glyphs in file managers and smooth cursor scaling.",
+  "icon": "MousePointer",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 8,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "papirus-icon-theme",
+      "name": "Papirus Icon Theme (Recommended)",
+      "packageName": "papirus-icon-theme",
+      "source": "repo",
+      "description": "Vibrant, comprehensive SVG icon theme with thousands of customized application icons.",
+      "pros": [
+        "Complete coverage of virtually every Linux application",
+        "Clean flat material styling"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "icons",
+        "svg",
+        "recommended"
+      ],
+      "recommended": true
+    },
+    {
+      "id": "bibata-cursor-theme",
+      "name": "Bibata Cursor Theme (Recommended)",
+      "packageName": "bibata-cursor-theme-bin",
+      "source": "aur",
+      "description": "Modern, rounded cursor pack available in Modern Ice, Modern Classic, and Amber varieties.",
+      "pros": [
+        "Extremely clean rounded edges",
+        "Perfect scaling on high-DPI monitors",
+        "Community favorite on Unixporn"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "cursor",
+        "modern",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "yaru-icon-theme",
+      "name": "Yaru Icon Theme",
+      "packageName": "yaru-icon-theme",
+      "source": "repo",
+      "description": "Ubuntu's signature Yaru icon theme for a sleek, familiar Linux desktop aesthetic.",
+      "pros": [
+        "Polished corporate finish",
+        "Included in OmarchyOS manifest"
+      ],
+      "cons": [
+        "Ubuntu visual branding"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "icons",
+        "ubuntu"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    }
+  ]
+}

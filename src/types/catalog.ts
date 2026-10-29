@@ -1,20 +1,5 @@
 export type PackageSource = "repo" | "aur";
-
 export type SelectionType = "single" | "multi";
-
-export type SimpleArchMode =
-  | "mode-1-desktop-postinstall"
-  | "mode-2-minimal-recommended"
-  | "mode-3-replace-existing"
-  | "mode-4-ancient-hardware";
-
-export type GpuDriver =
-  | "intel"
-  | "amd"
-  | "nvidia-dkms"
-  | "nvidia-open"
-  | "vm-virtio"
-  | "skip";
 
 export interface PackageMediaItem {
   title: string;
@@ -42,27 +27,39 @@ export interface PackageItem {
   packageName: string;
   source: PackageSource;
   description: string;
-  pros: string[];
-  cons: string[];
-  stabilityScore: number; // 1 to 10
-  tags: string[];
+  pros?: string[];
+  cons?: string[];
+  stabilityScore?: number; // 1 to 10
+  tags?: string[];
   recommended?: boolean;
-  defaultConfigRepo?: string;
+  isOmarchyDefault?: boolean;
   targetConfigPath?: string;
+  defaultConfigRepo?: string;
   websiteUrl?: string;
   githubUrl?: string;
-  isOmarchyDefault?: boolean; // Highlight OmarchyOS parity
+  services?: string[]; // Systemd system services to enable
+  userServices?: string[]; // Systemd user services to enable
+  envVars?: Record<string, string>;
+  dotfiles?: string[];
   media?: PackageMedia;
   hardwareRequirements?: PackageHardwareRequirements;
+}
+
+export interface CategoryPhase {
+  id: string;
+  title: string;
+  description?: string;
+  order: number;
 }
 
 export interface Category {
   id: string;
   name: string;
   shortDesc: string;
-  detailedDesc: string;
-  iconName: string;
-  phaseId: string;
+  detailedDesc?: string;
+  icon?: string;
+  phase: CategoryPhase;
+  order: number;
   selectionType: SelectionType;
   optional: boolean;
   dependsOn?: {
@@ -76,18 +73,22 @@ export interface Category {
 export interface Phase {
   id: string;
   title: string;
-  description: string;
-  iconName: string;
+  description?: string;
+  order: number;
   categories: Category[];
 }
 
 export interface SelectionManifest {
-  mode: SimpleArchMode;
-  gpuDriver: GpuDriver;
-  protocol: "wayland" | "x11";
-  architecture: "hand-assembled" | "desktop-environment";
-  selections: Record<string, string[]>; // categoryId -> array of package IDs
-  aurHelper: "paru-bin" | "yay-bin";
-  enableChaoticAur: boolean;
   timestamp: number;
+  mode?: string;
+  gpuDriver?: string;
+  aurHelper?: string;
+  selections: Record<string, string[]>; // categoryId -> array of selected package IDs
+}
+
+export interface CatalogData {
+  generatedAt: string;
+  totalCategories: number;
+  phases: Phase[];
+  categories: Category[];
 }

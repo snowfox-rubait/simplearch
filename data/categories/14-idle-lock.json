@@ -1,0 +1,90 @@
+{
+  "id": "idle-lock",
+  "name": "Idle Management & Screen Locker",
+  "shortDesc": "Monitors user inactivity, dims displays, suspends system, and presents secure lockscreen.",
+  "detailedDesc": "Coordinates security and power conservation when stepping away from your machine.",
+  "icon": "Lock",
+  "phase": {
+    "id": "shell",
+    "title": "Desktop Shell & Core Plumbings",
+    "description": "Status bars, launchers, notification systems, on-screen displays, and wallpaper managers.",
+    "order": 2
+  },
+  "order": 6,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "hyprlock-idle",
+      "name": "hypridle + hyprlock (Recommended)",
+      "packageName": "hyprlock",
+      "source": "repo",
+      "description": "Modern, GPU-accelerated lockscreen with Kawase background blur, dynamic time widgets, and fast input handling, paired with hypridle daemon.",
+      "pros": [
+        "GPU-accelerated smooth rendering",
+        "Beautiful configurable widgets (avatar, clock, battery)",
+        "Native Wayland ext-session-lock protocol",
+        "Hyprland ecosystem sync"
+      ],
+      "cons": [
+        "Requires Hyprland or wlroots compositor supporting session-lock"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "hyprland",
+        "lockscreen",
+        "gpu",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "targetConfigPath": "~/.config/hypr/hyprlock.conf",
+      "githubUrl": "https://github.com/hyprwm/hyprlock"
+    },
+    {
+      "id": "swaylock-effects",
+      "name": "swayidle + swaylock-effects",
+      "packageName": "swaylock-effects-git",
+      "source": "aur",
+      "description": "Classic Swaylock fork with added desktop screenshot blurring, fade-in animations, and grace periods.",
+      "pros": [
+        "Extremely battle-tested",
+        "Screenshot snapshot blur"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "sway",
+        "lockscreen"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "gtklock",
+      "name": "gtklock",
+      "packageName": "gtklock",
+      "source": "repo",
+      "description": "GTK3-based lockscreen utility with module extensions for music player controls and power buttons.",
+      "pros": [
+        "GTK theming support",
+        "Playerctl integration"
+      ],
+      "cons": [
+        "Less customizable graphics than hyprlock"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "gtk",
+        "lockscreen"
+      ],
+      "recommended": false
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "id": "wallpaper",
+  "name": "Wallpaper Daemon & Visual Backgrounds",
+  "shortDesc": "Paints wallpapers, animated GIFs, or dynamic transitions across your displays.",
+  "detailedDesc": "Runs in the background layer-shell without interfering with application windows.",
+  "icon": "Image",
+  "phase": {
+    "id": "shell",
+    "title": "Desktop Shell & Core Plumbings",
+    "description": "Status bars, launchers, notification systems, on-screen displays, and wallpaper managers.",
+    "order": 2
+  },
+  "order": 5,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "swww",
+      "name": "swww (Recommended)",
+      "packageName": "swww",
+      "source": "repo",
+      "description": "Efficient Wayland wallpaper daemon written in Rust supporting smooth transition effects (wipe, wave, grow, fade) and animated GIFs.",
+      "pros": [
+        "Incredible fluid transition animations",
+        "Supports animated GIFs & WebPs",
+        "Daemon control via CLI socket",
+        "Multi-monitor independent wallpapers"
+      ],
+      "cons": [
+        "Slightly more complex CLI parameters than static hyprpaper"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "rust",
+        "transitions",
+        "animated",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/LGFae/swww"
+    },
+    {
+      "id": "hyprpaper",
+      "name": "hyprpaper",
+      "packageName": "hyprpaper",
+      "source": "repo",
+      "description": "Blazing-fast, lightweight static wallpaper utility from the official Hyprland project.",
+      "pros": [
+        "Minimal memory footprint",
+        "Direct IPC socket with Hyprland",
+        "Native Hyprland configuration format"
+      ],
+      "cons": [
+        "Static wallpapers only; no wipe/wave animated transition effects"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "hyprland",
+        "fast",
+        "static"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/hyprwm/hyprpaper"
+    },
+    {
+      "id": "mpvpaper",
+      "name": "mpvpaper",
+      "packageName": "mpvpaper",
+      "source": "repo",
+      "description": "Video wallpaper utility utilizing mpv hardware video decoding as a live desktop background.",
+      "pros": [
+        "Full live video loops (MP4, MKV) as desktop wallpaper",
+        "Hardware GPU video decoding"
+      ],
+      "cons": [
+        "Consumes more GPU and battery power on laptops"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "video",
+        "live-wallpaper"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "waypaper",
+      "name": "Waypaper (GUI Wallpaper Picker)",
+      "packageName": "waypaper",
+      "source": "aur",
+      "description": "Graphical wallpaper selector frontend that sits on top of swww or hyprpaper.",
+      "pros": [
+        "Visual image thumbnail gallery",
+        "Point-and-click wallpaper selection"
+      ],
+      "cons": [
+        "GUI utility rather than background daemon"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gui",
+        "picker"
+      ],
+      "recommended": false
+    }
+  ]
+}

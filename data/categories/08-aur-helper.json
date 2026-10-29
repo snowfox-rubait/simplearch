@@ -1,0 +1,64 @@
+{
+  "id": "aur-helper",
+  "name": "AUR Helper & Package Engine",
+  "shortDesc": "Tool to automatically resolve dependencies and compile packages from Arch User Repository.",
+  "detailedDesc": "Essential for ricing utilities, proprietary apps, and bleeding-edge GitHub releases.",
+  "icon": "Package",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 8,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "paru",
+      "name": "Paru (Recommended)",
+      "packageName": "paru",
+      "source": "aur",
+      "description": "Feature-rich, high-performance Pacman/AUR wrapper written in Rust with interactive review diffs.",
+      "pros": [
+        "Written in memory-safe Rust",
+        "Built-in PKGBUILD diff viewer before building",
+        "Rich search UI"
+      ],
+      "cons": [
+        "Requires Rust toolchain during initial bootstrap compile"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "rust",
+        "aur",
+        "recommended"
+      ],
+      "recommended": true,
+      "githubUrl": "https://github.com/Morganamilo/paru"
+    },
+    {
+      "id": "yay",
+      "name": "Yay (Yet Another Yogurt)",
+      "packageName": "yay",
+      "source": "aur",
+      "description": "The most famous and widely adopted AUR helper for Arch Linux, written in Go.",
+      "pros": [
+        "Extremely mature and stable",
+        "Familiar pacman syntax",
+        "Fast compilation and search"
+      ],
+      "cons": [
+        "Doesn't force-prompt PKGBUILD reviews by default"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "go",
+        "aur"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/Jguer/yay"
+    }
+  ]
+}

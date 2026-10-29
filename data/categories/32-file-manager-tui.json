@@ -1,0 +1,84 @@
+{
+  "id": "file-manager-tui",
+  "name": "Terminal File Manager (TUI)",
+  "shortDesc": "Keyboard-driven file manager inside your terminal with instant image previews.",
+  "detailedDesc": "Navigate directories at the speed of thought without touching your mouse.",
+  "icon": "FolderTree",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 4,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "yazi",
+      "name": "Yazi (Recommended)",
+      "packageName": "yazi",
+      "source": "repo",
+      "description": "Blazingly fast terminal file manager written in Rust with asynchronous I/O and direct GPU image preview rendering.",
+      "pros": [
+        "Async Rust architecture (never blocks UI)",
+        "Direct Kitty/Sixel graphics protocol image previews",
+        "Intuitive Vim keybindings",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires terminal emulator supporting image protocols for graphics previews"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "rust",
+        "async",
+        "tui",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/sxyazi/yazi"
+    },
+    {
+      "id": "superfile",
+      "name": "Superfile",
+      "packageName": "superfile-bin",
+      "source": "aur",
+      "description": "Modern, gorgeous terminal file manager with rich file icons and multi-panel navigation.",
+      "pros": [
+        "Clean modern styling",
+        "Multi-panel directory views"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "tui",
+        "go"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "lf",
+      "name": "lf (List Files)",
+      "packageName": "lf",
+      "source": "repo",
+      "description": "Lightweight terminal file manager inspired by ranger, written in Go with single-binary efficiency.",
+      "pros": [
+        "Instant startup",
+        "Server/client architecture for clipboard sharing"
+      ],
+      "cons": [
+        "Requires shell scripting for preview generators"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "tui",
+        "go"
+      ],
+      "recommended": false
+    }
+  ]
+}

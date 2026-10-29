@@ -1,70 +1,111 @@
 import { Category, PackageItem, SelectionManifest } from "@/types/catalog";
+import { pruneInvalidSelections } from "@/lib/catalogLoader";
 
-export function generateInstallScript(
-  manifest: SelectionManifest,
-  selectedItems: { category: Category; packageItem: PackageItem }[]
-): string {
-  const timestamp = new Date(manifest.timestamp).toISOString();
+export interface ScriptEngineOptions {
+  manifest: SelectionManifest;
+  catalog: Category[];
+}
 
-  // Partition official repo vs AUR packages
-  const repoPackagesSet = new Set<string>();
-  const aurPackagesSet = new Set<string>();
+export function generateInstallScript(options: ScriptEngineOptions): string {
+  const { manifest, catalog } = options;
+  const cleanSelections = pruneInvalidSelections(manifest.selections || {}, catalog);
 
-  // Collect packages
-  selectedItems.forEach(({ packageItem }) => {
-    // Some package names can be multiple space-separated packages
-    const pkgNames = packageItem.packageName.split(/\s+/).filter(Boolean);
-    pkgNames.forEach((name) => {
-      if (packageItem.source === "aur") {
-        aurPackagesSet.add(name);
-      } else {
-        repoPackagesSet.add(name);
-      }
-    });
-  });
+  const timestamp = new Date(manifest.timestamp || Date.now()).toISOString();
+
+  // Mode detection
+  const selectedMode = cleanSelections["installation-mode"]?.[0] || "mode-2-minimal-recommended";
+
+  // GPU Driver detection
+  const selectedGpu = cleanSelections["gpu-driver"]?.[0] || "gpu-intel";
+
+  // AUR Helper detection
+  const selectedAurHelper = cleanSelections["aur-helper"]?.[0] || "paru";
+  const helperName = selectedAurHelper === "yay" ? "yay" : "paru";
+  const helperPackage = selectedAurHelper === "yay" ? "yay-bin" : "paru-bin";
+
+  // Package collections
+  const repoPackages = new Set<string>();
+  const aurPackages = new Set<string>();
+  const systemServices = new Set<string>();
+  const userServices = new Set<string>();
+  const envVariables: Record<string, string> = {};
+  const dotfilesModules = new Set<string>();
 
   // Base system requirements
-  repoPackagesSet.add("git");
-  repoPackagesSet.add("curl");
-  repoPackagesSet.add("base-devel");
+  repoPackages.add("git");
+  repoPackages.add("curl");
+  repoPackages.add("base-devel");
 
-  // GPU Driver resolution
+  // Collect from all selected packages across all categories
+  for (const category of catalog) {
+    const selectedPkgIds = cleanSelections[category.id] || [];
+    for (const pkgId of selectedPkgIds) {
+      const pkg = category.packages.find((p) => p.id === pkgId);
+      if (!pkg) continue;
+
+      // Extract pacman/AUR packages
+      const names = (pkg.packageName || "").split(/\s+/).filter(Boolean);
+      for (const name of names) {
+        if (pkg.source === "aur") {
+          aurPackages.add(name);
+        } else {
+          repoPackages.add(name);
+        }
+      }
+
+      // Collect systemd services
+      if (Array.isArray(pkg.services)) {
+        pkg.services.forEach((s) => systemServices.add(s));
+      }
+      if (Array.isArray(pkg.userServices)) {
+        pkg.userServices.forEach((s) => userServices.add(s));
+      }
+
+      // Collect environment variables
+      if (pkg.envVars) {
+        Object.assign(envVariables, pkg.envVars);
+      }
+
+      // Collect dotfile modules
+      if (Array.isArray(pkg.dotfiles)) {
+        pkg.dotfiles.forEach((d) => dotfilesModules.add(d));
+      }
+    }
+  }
+
+  // GPU Driver Stack generation
   let gpuDriverInstallCode = "";
-  if (manifest.gpuDriver === "intel") {
+  if (selectedGpu === "gpu-intel") {
     gpuDriverInstallCode = `log_info "Installing Intel Graphics Stack (Mesa + Vulkan + Media Driver)..."
 sudo pacman -S --needed --noconfirm mesa vulkan-intel intel-media-driver libva-intel-driver || true`;
-  } else if (manifest.gpuDriver === "amd") {
+  } else if (selectedGpu === "gpu-amd") {
     gpuDriverInstallCode = `log_info "Installing AMD Radeon Graphics Stack (AMDGPU + RADV Vulkan + VA-API)..."
 sudo pacman -S --needed --noconfirm mesa vulkan-radeon libva-mesa-driver mesa-vdpau || true`;
-  } else if (manifest.gpuDriver === "nvidia-dkms") {
+  } else if (selectedGpu === "gpu-nvidia-dkms") {
     gpuDriverInstallCode = `log_info "Installing NVIDIA Proprietary DKMS Drivers..."
 sudo pacman -S --needed --noconfirm nvidia-dkms nvidia-utils nvidia-settings linux-headers || true
 
-# Wayland environment variables for NVIDIA
-if [ ! -f /etc/environment.d/10-nvidia.conf ]; then
-  sudo mkdir -p /etc/environment.d
-  sudo tee /etc/environment.d/10-nvidia.conf > /dev/null << 'EOF'
+# Ingest Wayland environment variables for NVIDIA
+sudo mkdir -p /etc/environment.d
+sudo tee /etc/environment.d/10-nvidia.conf > /dev/null << 'EOF'
 LIBVA_DRIVER_NAME=nvidia
 GBM_BACKEND=nvidia-drm
 __GLX_VENDOR_LIBRARY_NAME=nvidia
 NVD_BACKEND=direct
-EOF
-fi`;
-  } else if (manifest.gpuDriver === "nvidia-open") {
+EOF`;
+  } else if (selectedGpu === "gpu-nvidia-open") {
     gpuDriverInstallCode = `log_info "Installing NVIDIA Open Kernel Module Drivers..."
 sudo pacman -S --needed --noconfirm nvidia-open-dkms nvidia-utils linux-headers || true
 
-# Wayland environment variables for NVIDIA
-if [ ! -f /etc/environment.d/10-nvidia.conf ]; then
-  sudo mkdir -p /etc/environment.d
-  sudo tee /etc/environment.d/10-nvidia.conf > /dev/null << 'EOF'
+# Ingest Wayland environment variables for NVIDIA
+sudo mkdir -p /etc/environment.d
+sudo tee /etc/environment.d/10-nvidia.conf > /dev/null << 'EOF'
 LIBVA_DRIVER_NAME=nvidia
 GBM_BACKEND=nvidia-drm
 __GLX_VENDOR_LIBRARY_NAME=nvidia
 NVD_BACKEND=direct
-EOF
-fi`;
-  } else if (manifest.gpuDriver === "vm-virtio") {
+EOF`;
+  } else if (selectedGpu === "gpu-vm-virtio") {
     gpuDriverInstallCode = `log_info "Installing Virtual Machine Guest Drivers (SPICE & QEMU Agent)..."
 sudo pacman -S --needed --noconfirm mesa xf86-video-vmware spice-vdagent qemu-guest-agent || true
 sudo systemctl enable --now spice-vdagent qemu-guest-agent || true`;
@@ -73,15 +114,14 @@ sudo systemctl enable --now spice-vdagent qemu-guest-agent || true`;
 sudo pacman -S --needed --noconfirm mesa || true`;
   }
 
-  // Ancient hardware optimizations (Mode 4)
+  // Mode 4: Ancient Hardware Optimizations
   let mode4Code = "";
-  if (manifest.mode === "mode-4-ancient-hardware") {
+  if (selectedMode === "mode-4-ancient-hardware") {
     mode4Code = `
 # ------------------------------------------------------------------------------
 # Mode 4: Ancient Hardware Optimizations (Low RAM & Weak Dual-Core)
 # ------------------------------------------------------------------------------
-log_info "Applying Ancient Hardware Optimizations..."
-# Configure zram with lz4 algorithm for lower CPU cycles
+log_info "Applying Ancient Hardware Optimizations (lz4 zram swap)..."
 sudo mkdir -p /etc/systemd/zram-generator.conf.d
 sudo tee /etc/systemd/zram-generator.conf.d/simplearch-ancient.conf > /dev/null << 'EOF'
 [zram0]
@@ -92,22 +132,36 @@ sudo systemctl restart systemd-zram-setup@zram0.service || true
 `;
   }
 
-  const helper = manifest.aurHelper === "yay-bin" ? "yay" : "paru";
-  const repoList = Array.from(repoPackagesSet).sort();
-  const aurList = Array.from(aurPackagesSet).sort();
+  // Ensure default desktop services if selected in categories
+  if (repoPackages.has("sddm")) systemServices.add("sddm.service");
+  if (repoPackages.has("greetd")) systemServices.add("greetd.service");
+  if (repoPackages.has("ly")) systemServices.add("ly.service");
+  if (repoPackages.has("networkmanager")) systemServices.add("NetworkManager.service");
+  if (repoPackages.has("bluetooth") || repoPackages.has("bluez")) systemServices.add("bluetooth.service");
+  if (repoPackages.has("ufw")) systemServices.add("ufw.service");
+
+  // Audio user services
+  if (repoPackages.has("pipewire")) {
+    userServices.add("pipewire");
+    userServices.add("pipewire-pulse");
+    userServices.add("wireplumber");
+  }
+
+  const sortedRepoList = Array.from(repoPackages).sort();
+  const sortedAurList = Array.from(aurPackages).sort();
+  const sortedSystemServices = Array.from(systemServices).sort();
+  const sortedUserServices = Array.from(userServices).sort();
 
   return `#!/usr/bin/env bash
 # ==============================================================================
 # SimpleArch Post-Installation Orchestration Script
 # ==============================================================================
-# Mode:             ${manifest.mode}
-# Architecture:     ${manifest.architecture}
-# Display Protocol: ${manifest.protocol}
-# GPU Driver:       ${manifest.gpuDriver}
-# AUR Helper:       ${manifest.aurHelper}
+# Mode:             ${selectedMode}
+# GPU Driver:       ${selectedGpu}
+# AUR Helper:       ${helperPackage}
 # Generated:        ${timestamp}
 #
-# Generated client-side by SimpleArch (https://simplearch.org)
+# Generated dynamically by SimpleArch (https://simplearch.snowfox.live)
 # ==============================================================================
 
 set -euo pipefail
@@ -158,36 +212,36 @@ sudo pacman -Sy --noconfirm
 ${gpuDriverInstallCode}
 ${mode4Code}
 # ------------------------------------------------------------------------------
-# Phase 4: AUR Helper Bootstrapping (${manifest.aurHelper})
+# Phase 4: AUR Helper Bootstrapping (${helperPackage})
 # ------------------------------------------------------------------------------
-if ! command -v ${helper} &>/dev/null; then
-  log_info "Bootstrapping AUR helper (${manifest.aurHelper})..."
+if ! command -v ${helperName} &>/dev/null; then
+  log_info "Bootstrapping AUR helper (${helperPackage})..."
   sudo pacman -S --needed --noconfirm base-devel git
   TMP_BUILD=\$(mktemp -d)
-  git clone "https://aur.archlinux.org/${manifest.aurHelper}.git" "\$TMP_BUILD/${manifest.aurHelper}"
-  (cd "\$TMP_BUILD/${manifest.aurHelper}" && makepkg -si --noconfirm)
+  git clone "https://aur.archlinux.org/${helperPackage}.git" "\$TMP_BUILD/${helperPackage}"
+  (cd "\$TMP_BUILD/${helperPackage}" && makepkg -si --noconfirm)
   rm -rf "\$TMP_BUILD"
-  log_ok "AUR helper (${helper}) successfully installed."
+  log_ok "AUR helper (${helperName}) successfully installed."
 else
-  log_ok "AUR helper (${helper}) already present."
+  log_ok "AUR helper (${helperName}) already present."
 fi
 
 # ------------------------------------------------------------------------------
-# Phase 5: Official Repository Package Installation (${repoList.length} packages)
+# Phase 5: Official Repository Package Installation (${sortedRepoList.length} packages)
 # ------------------------------------------------------------------------------
 log_info "Installing official repository packages..."
 sudo pacman -S --needed --noconfirm \\
-${repoList.map((pkg) => `  ${pkg}`).join(" \\\n")}
+${sortedRepoList.map((pkg) => `  ${pkg}`).join(" \\\n")}
 log_ok "Official repository packages installed."
 
 ${
-  aurList.length > 0
+  sortedAurList.length > 0
     ? `# ------------------------------------------------------------------------------
-# Phase 6: AUR Packages Installation (${aurList.length} packages)
+# Phase 6: AUR Packages Installation (${sortedAurList.length} packages)
 # ------------------------------------------------------------------------------
-log_info "Installing AUR packages via ${helper}..."
-${helper} -S --needed --noconfirm \\
-${aurList.map((pkg) => `  ${pkg}`).join(" \\\n")}
+log_info "Installing AUR packages via ${helperName}..."
+${helperName} -S --needed --noconfirm \\
+${sortedAurList.map((pkg) => `  ${pkg}`).join(" \\\n")}
 log_ok "AUR packages installed."`
     : `# No AUR packages requested.`
 }
@@ -209,12 +263,10 @@ backup_and_link() {
 
 mkdir -p "\$HOME/.config"
 
-# Pull baseline configs from Haw's modular repository
 TEMP_DOTS=\$(mktemp -d)
 log_info "Fetching baseline configurations from repository..."
 if git clone --depth=1 https://github.com/haw/dotfiles.git "\$TEMP_DOTS/dots" 2>/dev/null; then
   log_ok "Baseline configs downloaded."
-  # Non-destructive copy
   cp -r "\$TEMP_DOTS/dots/.config/"* "\$HOME/.config/" 2>/dev/null || true
   rm -rf "\$TEMP_DOTS"
 else
@@ -222,26 +274,17 @@ else
 fi
 
 # ------------------------------------------------------------------------------
-# Phase 8: System Services Activation
+# Phase 8: System & User Services Activation
 # ------------------------------------------------------------------------------
 log_info "Enabling system services..."
-sudo systemctl enable NetworkManager.service 2>/dev/null || true
+${sortedSystemServices.map((svc) => `sudo systemctl enable ${svc} 2>/dev/null || true`).join("\n")}
 
-# Display Manager
-if pacman -Qi sddm &>/dev/null; then
-  sudo systemctl enable sddm.service 2>/dev/null || true
-  log_ok "SDDM display manager enabled."
-elif pacman -Qi greetd &>/dev/null; then
-  sudo systemctl enable greetd.service 2>/dev/null || true
-  log_ok "Greetd display manager enabled."
-elif pacman -Qi ly &>/dev/null; then
-  sudo systemctl enable ly.service 2>/dev/null || true
-  log_ok "Ly display manager enabled."
-fi
-
-# Audio Stack
-systemctl --user enable --now pipewire pipewire-pulse wireplumber 2>/dev/null || true
-log_ok "PipeWire user audio services enabled."
+${
+  sortedUserServices.length > 0
+    ? `log_info "Enabling user-level services..."
+systemctl --user enable --now ${sortedUserServices.join(" ")} 2>/dev/null || true`
+    : ""
+}
 
 # ------------------------------------------------------------------------------
 # Phase 9: First-Boot Cheat-Sheet
@@ -269,7 +312,7 @@ echo ""
 echo -e "\${GREEN}\${BOLD}================================================================================\${NC}"
 echo -e "\${GREEN}\${BOLD}         SimpleArch Installation Finished Successfully!\${NC}"
 echo -e "\${GREEN}\${BOLD}================================================================================\${NC}"
-echo -e "Total Packages: \${CYAN}${repoList.length + aurList.length}\${NC} (${repoList.length} repo, ${aurList.length} AUR)"
+echo -e "Total Packages: \${CYAN}${sortedRepoList.length + sortedAurList.length}\${NC} (${sortedRepoList.length} repo, ${sortedAurList.length} AUR)"
 echo -e "Config Backups: \${YELLOW}\$BACKUP_DIR\${NC}"
 echo -e "Cheat-Sheet:    \${CYAN}\$HOME/.config/simplearch/cheatsheet.txt\${NC}"
 echo ""

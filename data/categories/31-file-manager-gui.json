@@ -1,0 +1,82 @@
+{
+  "id": "file-manager-gui",
+  "name": "Graphical File Manager (GUI)",
+  "shortDesc": "Desktop file explorer for browsing drives, network shares, and media files.",
+  "detailedDesc": "Provides drag-and-drop file operations and thumbnail previews.",
+  "icon": "Folder",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 3,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "dolphin",
+      "name": "Dolphin (Recommended)",
+      "packageName": "dolphin",
+      "source": "repo",
+      "description": "Feature-packed, fast Qt file manager from KDE with dual-pane browsing, integrated terminal panel, and Git status badges.",
+      "pros": [
+        "Split view mode (press F3)",
+        "Built-in terminal drawer (press F4)",
+        "Fast file searching",
+        "Rich thumbnail previews"
+      ],
+      "cons": [
+        "Pulls KDE framework libraries"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "qt",
+        "gui",
+        "recommended"
+      ],
+      "recommended": true
+    },
+    {
+      "id": "nautilus",
+      "name": "Nautilus (GNOME Files)",
+      "packageName": "nautilus",
+      "source": "repo",
+      "description": "Clean, distraction-free GTK4 file manager with smooth animations.",
+      "pros": [
+        "Minimalist UI",
+        "Clean search indexing"
+      ],
+      "cons": [
+        "Fewer power-user split panel features than Dolphin"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gtk4",
+        "gui"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "thunar",
+      "name": "Thunar",
+      "packageName": "thunar",
+      "source": "repo",
+      "description": "Lightweight GTK3 file manager from Xfce with bulk renamer and custom actions.",
+      "pros": [
+        "Very fast startup",
+        "Custom user action scripts",
+        "Minimal dependencies"
+      ],
+      "cons": [
+        "Older GTK3 interface"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gtk3",
+        "lightweight"
+      ],
+      "recommended": false
+    }
+  ]
+}

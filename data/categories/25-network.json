@@ -1,0 +1,62 @@
+{
+  "id": "network",
+  "name": "Network Management",
+  "shortDesc": "Daemon managing Wi-Fi, Ethernet, VPN tunnels, and system tray applet.",
+  "detailedDesc": "NetworkManager handles automatic connection switching, captive portals, and Wi-Fi scanning.",
+  "icon": "Wifi",
+  "phase": {
+    "id": "hardware",
+    "title": "Audio, Hardware & Connectivity",
+    "description": "PipeWire audio stack, Bluetooth, NetworkManager, screen brightness, and power management.",
+    "order": 4
+  },
+  "order": 2,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "networkmanager",
+      "name": "NetworkManager + nm-applet (Recommended)",
+      "packageName": "networkmanager",
+      "source": "repo",
+      "description": "The universal network management suite for Linux desktops with tray applet and nmcli command line tool.",
+      "pros": [
+        "Auto-detection of Wi-Fi & Ethernet",
+        "VPN support (WireGuard/OpenVPN)",
+        "Tray applet for Waybar integration",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Slightly heavier than bare iwd/systemd-networkd"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "network",
+        "daemon",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "iwd",
+      "name": "iwd (Intel Wireless Daemon)",
+      "packageName": "iwd",
+      "source": "repo",
+      "description": "Ultra-fast, lightweight standalone wireless daemon replacing wpa_supplicant.",
+      "pros": [
+        "Blazing fast Wi-Fi connection times",
+        "Extremely tiny memory footprint"
+      ],
+      "cons": [
+        "Focuses strictly on Wi-Fi; requires separate tool for wired Ethernet/VPN"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "wifi",
+        "minimalist"
+      ],
+      "recommended": false
+    }
+  ]
+}

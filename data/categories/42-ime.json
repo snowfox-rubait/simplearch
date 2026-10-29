@@ -1,0 +1,61 @@
+{
+  "id": "ime",
+  "name": "Input Method Editors (IME) & Asian Typography",
+  "shortDesc": "Support for typing Japanese (Mozc), Chinese (Pinyin), Korean (Hangul), and non-Latin scripts.",
+  "detailedDesc": "Essential for bilingual and CJK users to switch between input character sets.",
+  "icon": "Languages",
+  "phase": {
+    "id": "system",
+    "title": "System Administration, Disks & Security",
+    "description": "Disk partition utilities, ISO flashers, firewall interfaces, and input method editors (IME).",
+    "order": 7
+  },
+  "order": 3,
+  "selectionType": "single",
+  "optional": true,
+  "packages": [
+    {
+      "id": "fcitx5",
+      "name": "fcitx5 + fcitx5-config-qt (Recommended)",
+      "packageName": "fcitx5",
+      "source": "repo",
+      "description": "Next-generation lightweight input method framework with native Wayland protocol support and Qt config GUI.",
+      "pros": [
+        "Native Wayland support",
+        "Modern modular architecture",
+        "Extensive CJK engine add-ons (Mozc, Hangul, Rime)",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires environment variables in pam_environment or profile"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "ime",
+        "cjk",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "ibus",
+      "name": "IBus",
+      "packageName": "ibus",
+      "source": "repo",
+      "description": "Intelligent Input Bus framework commonly used in GNOME environments.",
+      "pros": [
+        "Default integration in GNOME desktop"
+      ],
+      "cons": [
+        "Heavier footprint than Fcitx5"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "ime",
+        "gnome"
+      ],
+      "recommended": false
+    }
+  ]
+}

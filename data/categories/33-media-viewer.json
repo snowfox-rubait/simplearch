@@ -1,0 +1,86 @@
+{
+  "id": "media-viewer",
+  "name": "Media, Video & Image Viewers",
+  "shortDesc": "High-performance video playback and instant Wayland image viewers.",
+  "detailedDesc": "Hardware accelerated video rendering and quick-look image inspection.",
+  "icon": "Film",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 5,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "mpv",
+      "name": "mpv (Recommended Video Player)",
+      "packageName": "mpv",
+      "source": "repo",
+      "description": "Command-line/GUI video player with GPU video decoding, high-quality video scaling algorithms, and Lua scripting.",
+      "pros": [
+        "Best video scaling and color quality in the industry",
+        "Hardware VA-API acceleration",
+        "Minimalist on-screen controller",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Keybinding-centric rather than menu-heavy"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "video",
+        "hardware",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "imv",
+      "name": "imv (Recommended Image Viewer)",
+      "packageName": "imv",
+      "source": "repo",
+      "description": "Command-line image viewer for Wayland and X11. Opens images in 10 milliseconds with smooth zooming and panning.",
+      "pros": [
+        "Wayland-native",
+        "Near instantaneous startup",
+        "Vim-like navigation",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Minimalist"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "images",
+        "wayland",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "loupe",
+      "name": "Loupe (GNOME Image Viewer)",
+      "packageName": "loupe",
+      "source": "repo",
+      "description": "Modern GTK4/libadwaita image viewer with smooth touchpad zoom gestures.",
+      "pros": [
+        "Modern UI",
+        "Fluid pinch-to-zoom gestures"
+      ],
+      "cons": [
+        "Heavier footprint than imv"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk4",
+        "images"
+      ],
+      "recommended": false
+    }
+  ]
+}

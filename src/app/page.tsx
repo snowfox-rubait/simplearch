@@ -1,5 +1,5 @@
-import { WizardLayout } from "@/components/wizard/WizardLayout";
+import { WikiLayout } from "@/components/wiki/WikiLayout";
 
 export default function Home() {
-  return <WizardLayout />;
+  return <WikiLayout />;
 }

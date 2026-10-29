@@ -1,0 +1,111 @@
+{
+  "id": "terminal",
+  "name": "Terminal Emulator",
+  "shortDesc": "GPU-accelerated terminal emulators with true color, font ligatures, and image support.",
+  "detailedDesc": "Where you spend most of your time on Arch Linux.",
+  "icon": "Terminal",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 2,
+  "selectionType": "multi",
+  "optional": false,
+  "packages": [
+    {
+      "id": "kitty",
+      "name": "Kitty (Recommended)",
+      "packageName": "kitty",
+      "source": "repo",
+      "description": "GPU-accelerated terminal emulator with kittens framework, native image rendering protocol, tabs, and true-color support.",
+      "pros": [
+        "OpenGL hardware acceleration",
+        "Kitty graphics protocol (renders images in yazi/ranger)",
+        "Rich tabs & splits",
+        "Extensive theme ecosystem"
+      ],
+      "cons": [
+        "Config syntax is unique to Kitty"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gpu",
+        "terminal",
+        "images",
+        "recommended"
+      ],
+      "recommended": true,
+      "githubUrl": "https://github.com/kovidgoyal/kitty"
+    },
+    {
+      "id": "ghostty",
+      "name": "Ghostty",
+      "packageName": "ghostty",
+      "source": "aur",
+      "description": "Fast, feature-rich, cross-platform terminal emulator written in Zig with native platform UI and GPU rendering.",
+      "pros": [
+        "Modern Zig performance",
+        "Exceptional font rendering and ligatures",
+        "Clean configuration syntax",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "AUR package on Arch"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "zig",
+        "modern",
+        "gpu"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://ghostty.org"
+    },
+    {
+      "id": "foot",
+      "name": "Foot",
+      "packageName": "foot",
+      "source": "repo",
+      "description": "Blazing fast, lightweight Wayland-native terminal emulator designed specifically for wlroots compositors.",
+      "pros": [
+        "Tiny memory footprint",
+        "Server-client daemon mode drops launch time to under 1ms",
+        "Zero GPU dependencies"
+      ],
+      "cons": [
+        "Wayland only"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "wayland",
+        "c",
+        "minimalist"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "alacritty",
+      "name": "Alacritty",
+      "packageName": "alacritty",
+      "source": "repo",
+      "description": "Simplistic GPU-accelerated terminal emulator written in Rust.",
+      "pros": [
+        "Rock-solid stability",
+        "Fast startup",
+        "Simple YAML/TOML config"
+      ],
+      "cons": [
+        "No built-in tabs or splits (relies on tmux)"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "rust",
+        "gpu"
+      ],
+      "recommended": false
+    }
+  ]
+}

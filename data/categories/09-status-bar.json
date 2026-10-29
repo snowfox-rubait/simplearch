@@ -1,0 +1,119 @@
+{
+  "id": "status-bar",
+  "name": "Status Bar & Desktop Panels",
+  "shortDesc": "Displays workspaces, clocks, hardware gauges, audio volume, and network status.",
+  "detailedDesc": "Requests top-layer surface space from the compositor via wlr-layer-shell.",
+  "icon": "Sliders",
+  "phase": {
+    "id": "shell",
+    "title": "Desktop Shell & Core Plumbings",
+    "description": "Status bars, launchers, notification systems, on-screen displays, and wallpaper managers.",
+    "order": 2
+  },
+  "order": 1,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "waybar",
+      "name": "Waybar (Recommended)",
+      "packageName": "waybar",
+      "source": "repo",
+      "description": "The de-facto standard customizable status bar for wlroots and Hyprland compositors with JSON configuration and CSS styling.",
+      "pros": [
+        "Declarative JSON module layout",
+        "Full GTK3 CSS styling engine",
+        "Hundreds of battle-tested community themes",
+        "High stability"
+      ],
+      "cons": [
+        "Polling modules require shell scripts for complex interactive dials"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gtk3",
+        "css",
+        "layer-shell",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "targetConfigPath": "~/.config/waybar/config.jsonc",
+      "githubUrl": "https://github.com/Alexays/Waybar"
+    },
+    {
+      "id": "quickshell",
+      "name": "Quickshell",
+      "packageName": "quickshell",
+      "source": "aur",
+      "description": "Next-generation programmable desktop shell framework powered by QtQuick, QML, and JavaScript. Build full reactive HUDs and visual instruments.",
+      "pros": [
+        "Complete reactive UI programming with QML & JS",
+        "Native PipeWire & D-Bus hooks",
+        "Hardware spring physics animations",
+        "Ultimate customization"
+      ],
+      "cons": [
+        "Requires QML knowledge for deep custom development"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "qtquick",
+        "qml",
+        "reactive",
+        "advanced"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/outfoxxed/quickshell"
+    },
+    {
+      "id": "eww",
+      "name": "Eww (ElKowar's Wacky Widgets)",
+      "packageName": "eww",
+      "source": "repo",
+      "description": "Standalone widget system written in Rust using Yuck syntax and SCSS styling.",
+      "pros": [
+        "Extremely flexible widget canvas",
+        "Standalone daemon architecture",
+        "Rust performance"
+      ],
+      "cons": [
+        "Custom Yuck configuration syntax has a steep learning curve"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "rust",
+        "yuck",
+        "widgets"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/elkowar/eww"
+    },
+    {
+      "id": "yambar",
+      "name": "Yambar",
+      "packageName": "yambar",
+      "source": "repo",
+      "description": "Modular, ultra-minimal status panel for X11 and Wayland with zero toolkit bloat.",
+      "pros": [
+        "Fast startup",
+        "Very low memory footprint",
+        "Clean YAML config"
+      ],
+      "cons": [
+        "Fewer pre-made graphical widgets compared to Waybar"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "yaml",
+        "minimal"
+      ],
+      "recommended": false
+    }
+  ]
+}

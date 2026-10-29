@@ -1,0 +1,105 @@
+{
+  "id": "browser",
+  "name": "Web Browser",
+  "shortDesc": "Fast, secure web browsing with hardware video acceleration.",
+  "detailedDesc": "Select your primary daily internet browser.",
+  "icon": "Globe",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 1,
+  "selectionType": "multi",
+  "optional": false,
+  "packages": [
+    {
+      "id": "firefox",
+      "name": "Firefox (Recommended)",
+      "packageName": "firefox",
+      "source": "repo",
+      "description": "Privacy-respecting open source web browser with native Wayland VA-API video decoding, userChrome.css theming, and container tabs.",
+      "pros": [
+        "Native Wayland rendering",
+        "Hardware GPU video acceleration",
+        "Highly customizable with CSS ricing",
+        "Strict privacy controls"
+      ],
+      "cons": [
+        "Slightly slower WebGL performance than Chromium in select benchmarks"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "browser",
+        "privacy",
+        "recommended"
+      ],
+      "recommended": true
+    },
+    {
+      "id": "chromium",
+      "name": "Chromium",
+      "packageName": "chromium",
+      "source": "repo",
+      "description": "Open-source foundation of Google Chrome. Ultra-fast Blink engine and broad web compatibility.",
+      "pros": [
+        "Exceptional JavaScript speed",
+        "Full WebAuthn and PWA support",
+        "Included in OmarchyOS manifest"
+      ],
+      "cons": [
+        "Google-centric ecosystem"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "browser",
+        "blink"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "zen-browser",
+      "name": "Zen Browser",
+      "packageName": "zen-browser-bin",
+      "source": "aur",
+      "description": "Modern, beautiful Firefox fork featuring vertical tabs, split views, and clean arc-inspired aesthetic.",
+      "pros": [
+        "Gorgeous modern vertical tab design",
+        "Built-in workspace management",
+        "Firefox privacy base"
+      ],
+      "cons": [
+        "AUR binary package"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "browser",
+        "modern",
+        "aur"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "brave",
+      "name": "Brave Browser",
+      "packageName": "brave-bin",
+      "source": "aur",
+      "description": "Chromium-based browser with built-in ad blocker and tracking prevention.",
+      "pros": [
+        "Automatic ad/tracker blocking",
+        "Fast Chromium engine"
+      ],
+      "cons": [
+        "Crypto feature promotions"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "browser",
+        "chromium"
+      ],
+      "recommended": false
+    }
+  ]
+}

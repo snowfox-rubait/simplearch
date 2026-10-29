@@ -1,0 +1,106 @@
+{
+  "id": "containers",
+  "name": "Containers & Virtualization",
+  "shortDesc": "Docker / Podman container engines and interactive management dashboards.",
+  "detailedDesc": "Run development databases, local web servers, and isolated environments.",
+  "icon": "Boxes",
+  "phase": {
+    "id": "developer",
+    "title": "Developer Toolchains & CLI Ergonomics",
+    "description": "Modern Rust/Go coreutils replacements, Git interfaces, Docker container managers, and polyglot runtime toolchains.",
+    "order": 6
+  },
+  "order": 3,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "docker-stack",
+      "name": "Docker + Docker Compose (Recommended Engine)",
+      "packageName": "docker",
+      "source": "repo",
+      "description": "Industry-standard containerization platform with multi-container Docker Compose orchestration.",
+      "pros": [
+        "Universal developer ecosystem compatibility",
+        "Standard images on Docker Hub",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires background systemd daemon"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "containers",
+        "docker",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "lazydocker",
+      "name": "lazydocker (Recommended TUI)",
+      "packageName": "lazydocker",
+      "source": "repo",
+      "description": "Interactive terminal UI for Docker containers, images, volumes, and live streaming logs.",
+      "pros": [
+        "View real-time CPU/RAM usage per container",
+        "Stream logs and attach shells in 1 keystroke",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "docker",
+        "tui",
+        "go",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/jesseduffield/lazydocker"
+    },
+    {
+      "id": "podman",
+      "name": "Podman + Podman Desktop",
+      "packageName": "podman",
+      "source": "repo",
+      "description": "Daemonless, rootless container engine with full Docker command line compatibility.",
+      "pros": [
+        "Rootless security model",
+        "No background daemon running when idle"
+      ],
+      "cons": [
+        "Occasional differences in Docker socket binding for third-party dev tools"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "containers",
+        "rootless"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "oxker",
+      "name": "oxker (Rust Docker TUI)",
+      "packageName": "oxker-bin",
+      "source": "aur",
+      "description": "Ultra-fast, lightweight TUI for monitoring Docker containers written in Rust.",
+      "pros": [
+        "Tiny binary size",
+        "Instant startup"
+      ],
+      "cons": [
+        "Fewer container control options than lazydocker"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "rust",
+        "tui"
+      ],
+      "recommended": false
+    }
+  ]
+}

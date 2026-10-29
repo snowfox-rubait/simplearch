@@ -1,0 +1,43 @@
+{
+  "id": "file-transfer",
+  "name": "Local Network File Transfer & Sharing",
+  "shortDesc": "Instant, encrypted local file sharing between Linux, Android, iOS, and macOS.",
+  "detailedDesc": "AirDrop alternative for local Wi-Fi networks.",
+  "icon": "Share2",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 7,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "localsend",
+      "name": "LocalSend (Recommended)",
+      "packageName": "localsend-bin",
+      "source": "aur",
+      "description": "Open source cross-platform file transfer tool. Send files, folders, and text securely between devices on the same local network with zero internet connection required.",
+      "pros": [
+        "End-to-end encrypted local Wi-Fi sharing",
+        "Zero cloud servers required",
+        "Native clients on Android, iOS, Mac, and Windows",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "sharing",
+        "network",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://localsend.org"
+    }
+  ]
+}

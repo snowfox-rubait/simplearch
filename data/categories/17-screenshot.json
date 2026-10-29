@@ -1,0 +1,103 @@
+{
+  "id": "screenshot",
+  "name": "Screenshot & Annotation Utilities",
+  "shortDesc": "Region capture, instant screenshot markup, arrows, blurring, and clipboard copying.",
+  "detailedDesc": "Replaces heavy tools with blazing-fast region select + instant annotation markup.",
+  "icon": "Camera",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 3,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "satty-grim-slurp",
+      "name": "satty + grim + slurp (Recommended)",
+      "packageName": "satty",
+      "source": "repo",
+      "description": "Modern screenshot annotation tool built with GTK4 and libadwaita. grim captures pixels, slurp selects screen area, satty provides instant arrows, text, and blur markup.",
+      "pros": [
+        "Modern, intuitive UI",
+        "Quick arrows, rectangles, text, and pixelation blur",
+        "Wayland-native",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Requires grim and slurp installed as capture backends"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk4",
+        "annotation",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/gabm/Satty"
+    },
+    {
+      "id": "swappy",
+      "name": "swappy",
+      "packageName": "swappy",
+      "source": "repo",
+      "description": "The classic Wayland snapshot editing tool. Very lightweight and responsive.",
+      "pros": [
+        "Lightweight GTK3 app",
+        "Fast brush, arrows, and highlights"
+      ],
+      "cons": [
+        "Slightly dated UI compared to Satty"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk3",
+        "classic"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "hyprshot",
+      "name": "hyprshot",
+      "packageName": "hyprshot",
+      "source": "aur",
+      "description": "Hyprland-specific CLI utility that easily captures active windows, monitors, or regions with zero configuration.",
+      "pros": [
+        "Automatic active window border detection",
+        "Clean shell script"
+      ],
+      "cons": [
+        "Hyprland only"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "hyprland",
+        "cli"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "flameshot",
+      "name": "Flameshot",
+      "packageName": "flameshot",
+      "source": "repo",
+      "description": "Powerful and versatile screenshot software with integrated annotation and cloud upload.",
+      "pros": [
+        "Rich feature set",
+        "Pin screenshot to screen overlay"
+      ],
+      "cons": [
+        "Requires XDG desktop portal under Wayland for proper area selection"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "qt",
+        "gui"
+      ],
+      "recommended": false
+    }
+  ]
+}

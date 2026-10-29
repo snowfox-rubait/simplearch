@@ -1,0 +1,146 @@
+{
+  "id": "gpu-driver",
+  "name": "GPU Graphics Drivers",
+  "shortDesc": "Essential graphics drivers (Required for archinstall Minimal profile)",
+  "detailedDesc": "Because archinstall's Minimal profile does not include GPU drivers, you must select your hardware driver here so your display server or Wayland compositor can render.",
+  "icon": "Zap",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 2,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "gpu-intel",
+      "name": "Intel Graphics (Integrated HD/UHD/Iris & Arc)",
+      "packageName": "mesa vulkan-intel intel-media-driver",
+      "source": "repo",
+      "description": "Standard open-source Mesa driver with Vulkan and hardware VA-API video decoding for Intel integrated and discrete Arc graphics.",
+      "pros": [
+        "Kernel-level out-of-the-box stability",
+        "Low power consumption and efficient hardware video decode",
+        "Full Wayland compatibility"
+      ],
+      "cons": [
+        "Older GMA chipsets (Gen 3/4) lack Vulkan support"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "verified",
+        "intel",
+        "hardware",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "gpu-amd",
+      "name": "AMD Radeon Graphics",
+      "packageName": "mesa vulkan-radeon libva-mesa-driver",
+      "source": "repo",
+      "description": "Standard AMDGPU open-source stack with RADV Vulkan and Mesa VA-API acceleration for modern and legacy Radeon cards.",
+      "pros": [
+        "Best-in-class Linux driver with zero proprietary blobs",
+        "Flawless Wayland and gaming performance",
+        "Native kernel modesetting"
+      ],
+      "cons": [
+        "Very old TeraScale cards (HD 5000/6000) require legacy radeon module"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "verified",
+        "amd",
+        "hardware",
+        "recommended"
+      ],
+      "recommended": true
+    },
+    {
+      "id": "gpu-nvidia-dkms",
+      "name": "NVIDIA Proprietary (DKMS)",
+      "packageName": "nvidia-dkms nvidia-utils nvidia-settings lib32-nvidia-utils",
+      "source": "repo",
+      "description": "Official proprietary NVIDIA driver compiled via DKMS for current GeForce GTX 900+ / RTX cards. Injects Wayland environment variables.",
+      "pros": [
+        "Maximum 3D graphics, CUDA, and gaming performance",
+        "Hardware NVENC video encoding",
+        "Full DLSS support"
+      ],
+      "cons": [
+        "Requires kernel-matching rebuilds",
+        "Explicit sync setup needed on Wayland"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "nvidia",
+        "hardware",
+        "modern-hardware"
+      ]
+    },
+    {
+      "id": "gpu-nvidia-open",
+      "name": "NVIDIA Open Kernel Modules (Turing+ / RTX)",
+      "packageName": "nvidia-open-dkms nvidia-utils",
+      "source": "repo",
+      "description": "NVIDIA's open-source kernel modules for Turing, Ampere, Ada Lovelace, and newer GPUs (RTX 2000 series and up).",
+      "pros": [
+        "Open kernel modules integrated with Linux ecosystem",
+        "Clean suspend/resume handling"
+      ],
+      "cons": [
+        "Not compatible with GTX 1000 series or older hardware"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "nvidia",
+        "open-source",
+        "modern-hardware"
+      ]
+    },
+    {
+      "id": "gpu-vm-virtio",
+      "name": "Virtual Machine (QEMU / KVM / VirtualBox)",
+      "packageName": "mesa xf86-video-vmware spice-vdagent qemu-guest-agent",
+      "source": "repo",
+      "description": "Optimized guest drivers and clipboard/resolution synchronization daemons for running Arch inside a VM.",
+      "pros": [
+        "Dynamic window resizing and seamless clipboard sharing",
+        "Minimal host resource footprint"
+      ],
+      "cons": [
+        "No direct bare-metal 3D GPU acceleration without PCIe passthrough"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "vm",
+        "virtualization",
+        "verified"
+      ]
+    },
+    {
+      "id": "gpu-generic-skip",
+      "name": "Skip / Generic Mesa Software Rasterizer",
+      "packageName": "mesa",
+      "source": "repo",
+      "description": "Install basic Mesa LLVMpipe software rasterizer without hardware-specific acceleration (useful for troubleshooting or custom setups).",
+      "pros": [
+        "Universal fallback that works anywhere"
+      ],
+      "cons": [
+        "High CPU usage for any graphical rendering",
+        "No hardware acceleration"
+      ],
+      "stabilityScore": 7,
+      "tags": [
+        "fallback",
+        "minimal"
+      ]
+    }
+  ]
+}

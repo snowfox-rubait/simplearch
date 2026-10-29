@@ -1,0 +1,106 @@
+{
+  "id": "disk-tools",
+  "name": "Disk, Partition & Filesystem Tools",
+  "shortDesc": "Partition resizing, SMART drive health diagnostic, and multi-ISO bootable flash utilities.",
+  "detailedDesc": "Manage physical NVMe/SSD drives, USB drives, and format filesystems.",
+  "icon": "HardDrive",
+  "phase": {
+    "id": "system",
+    "title": "System Administration, Disks & Security",
+    "description": "Disk partition utilities, ISO flashers, firewall interfaces, and input method editors (IME).",
+    "order": 7
+  },
+  "order": 1,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "gnome-disk-utility",
+      "name": "GNOME Disks (Recommended GUI)",
+      "packageName": "gnome-disk-utility",
+      "source": "repo",
+      "description": "Clean, reliable disk management utility for formatting drives, inspecting SMART health, creating disk images, and benchmarking.",
+      "pros": [
+        "Clear graphical drive overview",
+        "Automatic mounting configuration",
+        "SMART health diagnostic",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Pulls GNOME dependencies"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gui",
+        "disk",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "ncdu",
+      "name": "ncdu (Recommended TUI Disk Usage)",
+      "packageName": "ncdu",
+      "source": "repo",
+      "description": "Fast NCurses disk usage analyzer for finding large files and folders in your terminal.",
+      "pros": [
+        "Fast interactive folder navigation",
+        "Instant deletion of unwanted temp files",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Single-threaded scanning"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "tui",
+        "disk",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "gparted",
+      "name": "GParted",
+      "packageName": "gparted",
+      "source": "repo",
+      "description": "Dedicated graphical partition editor for creating, deleting, and resizing partitions (ext4, btrfs, NTFS, FAT).",
+      "pros": [
+        "Advanced partition resizing and moving",
+        "Universal filesystem support"
+      ],
+      "cons": [
+        "Requires root privileges to launch"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gui",
+        "partitioning"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "ventoy",
+      "name": "Ventoy (Multi-ISO USB Creator)",
+      "packageName": "ventoy-bin",
+      "source": "aur",
+      "description": "Tool to create bootable USB drives where you simply copy ISO files directly to the stick without reformatting.",
+      "pros": [
+        "Boot dozens of different Linux ISOs from one USB flash drive",
+        "No formatting needed to add new ISOs"
+      ],
+      "cons": [
+        "AUR package"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "usb",
+        "iso",
+        "aur"
+      ],
+      "recommended": false
+    }
+  ]
+}

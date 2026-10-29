@@ -1,0 +1,143 @@
+{
+  "id": "compositor-wm",
+  "name": "Compositor & Window Manager",
+  "shortDesc": "The core graphical engine responsible for tiling, drawing window frames, animations, and hotkeys.",
+  "detailedDesc": "Under Wayland, the compositor is both the display server and the window manager. It coordinates GPU buffers and manages workspaces.",
+  "icon": "AppWindow",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 6,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "hyprland",
+      "name": "Hyprland (Recommended)",
+      "packageName": "hyprland",
+      "source": "repo",
+      "description": "Dynamic tiling Wayland compositor featuring smooth bezier animations, Kawase blur, rounded corners, and powerful IPC sockets.",
+      "pros": [
+        "Astonishing visual polish & spring physics",
+        "Extensive socket IPC ecosystem",
+        "Dwindle & master layouts",
+        "Huge active community"
+      ],
+      "cons": [
+        "Rapid development pace requires keeping plugins in sync with updates"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "wayland",
+        "tiling",
+        "animations",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "targetConfigPath": "~/.config/hypr/hyprland.conf",
+      "websiteUrl": "https://hyprland.org",
+      "githubUrl": "https://github.com/hyprwm/Hyprland"
+    },
+    {
+      "id": "sway",
+      "name": "Sway",
+      "packageName": "sway",
+      "source": "repo",
+      "description": "Drop-in i3-compatible Wayland compositor built directly on wlroots. Minimalist, rock-solid, and battle-tested.",
+      "pros": [
+        "100% compatible with i3 syntax",
+        "Rock-solid stability",
+        "Zero visual distractions or overhead"
+      ],
+      "cons": [
+        "No built-in blur or advanced rounded window shaders (requires forks)"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "wayland",
+        "wlroots",
+        "minimalist"
+      ],
+      "recommended": false,
+      "websiteUrl": "https://swaywm.org"
+    },
+    {
+      "id": "niri",
+      "name": "Niri",
+      "packageName": "niri",
+      "source": "repo",
+      "description": "Scrollable-tiling Wayland compositor inspired by PaperWM. Windows open in infinite horizontal ribbons.",
+      "pros": [
+        "Unique horizontal infinite ribbon workflow",
+        "Fluid touchpad gestures",
+        "Written in Rust"
+      ],
+      "cons": [
+        "Different paradigm than standard grid tiling WMs"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "wayland",
+        "scrollable",
+        "rust"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/YaLTeR/niri"
+    },
+    {
+      "id": "river",
+      "name": "River",
+      "packageName": "river",
+      "source": "repo",
+      "description": "Dynamic tiling Wayland compositor following the Suckless and dwm philosophy. Highly scriptable via IPC.",
+      "pros": [
+        "Extremely lightweight",
+        "Tag-based workspace management",
+        "Modular layout generator daemons"
+      ],
+      "cons": [
+        "Requires external layout generators for custom arrangements"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "wayland",
+        "dynamic",
+        "suckless"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/riverwm/river"
+    },
+    {
+      "id": "labwc",
+      "name": "Labwc",
+      "packageName": "labwc",
+      "source": "repo",
+      "description": "Openbox-like stacking Wayland compositor focusing on simplicity and lightweight efficiency.",
+      "pros": [
+        "Openbox config compatibility",
+        "Very lightweight",
+        "Great for classic floating window lovers"
+      ],
+      "cons": [
+        "Not primarily designed for automated keyboard tiling"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "wayland",
+        "stacking",
+        "openbox"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/labwc/labwc"
+    }
+  ]
+}

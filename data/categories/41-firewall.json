@@ -1,0 +1,82 @@
+{
+  "id": "firewall",
+  "name": "Firewall & Security Interface",
+  "shortDesc": "Packet filtering rules and application network firewalls.",
+  "detailedDesc": "Protect your local ports and monitor incoming/outgoing connections.",
+  "icon": "Shield",
+  "phase": {
+    "id": "system",
+    "title": "System Administration, Disks & Security",
+    "description": "Disk partition utilities, ISO flashers, firewall interfaces, and input method editors (IME).",
+    "order": 7
+  },
+  "order": 2,
+  "selectionType": "single",
+  "optional": true,
+  "packages": [
+    {
+      "id": "ufw-gufw",
+      "name": "UFW + Gufw (Recommended)",
+      "packageName": "ufw",
+      "source": "repo",
+      "description": "Uncomplicated Firewall with easy command line syntax and graphical GTK management frontend.",
+      "pros": [
+        "Simple default incoming-deny policy",
+        "Trivial port opening (`ufw allow 8080`)",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Basic interface"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "security",
+        "firewall",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "firewalld",
+      "name": "firewalld",
+      "packageName": "firewalld",
+      "source": "repo",
+      "description": "Dynamic managed firewall with network zones support.",
+      "pros": [
+        "Network zones (Home, Work, Public)",
+        "Rich rule definitions"
+      ],
+      "cons": [
+        "More complex configuration than UFW"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "firewall",
+        "dynamic"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "opensnitch",
+      "name": "Opensnitch (Application Firewall)",
+      "packageName": "opensnitch",
+      "source": "aur",
+      "description": "Interactive application firewall (Little Snitch clone) that prompts whenever a program attempts an outbound network connection.",
+      "pros": [
+        "Notifies you in real-time when apps phone home",
+        "Rule creation per executable"
+      ],
+      "cons": [
+        "Can produce many notification prompts initially"
+      ],
+      "stabilityScore": 8,
+      "tags": [
+        "security",
+        "interactive",
+        "aur"
+      ],
+      "recommended": false
+    }
+  ]
+}

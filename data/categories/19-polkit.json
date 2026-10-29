@@ -1,0 +1,81 @@
+{
+  "id": "polkit",
+  "name": "Polkit Authentication Agent",
+  "shortDesc": "Presents graphical password prompts for root authorization (mounting disks, installing software).",
+  "detailedDesc": "Mandatory plumbing component: without a polkit agent, GUI applications requiring administrative rights fail silently.",
+  "icon": "ShieldAlert",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 5,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "hyprpolkitagent",
+      "name": "hyprpolkitagent (Recommended)",
+      "packageName": "hyprpolkitagent",
+      "source": "repo",
+      "description": "Official Polkit authentication agent built with Qt/QML from the Hyprland project. Clean, minimal, and GPU-accelerated.",
+      "pros": [
+        "Matches modern rounded aesthetic",
+        "Native Wayland layer-shell dialog",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Qt-based"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "wayland",
+        "auth",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "githubUrl": "https://github.com/hyprwm/hyprpolkitagent"
+    },
+    {
+      "id": "polkit-gnome",
+      "name": "polkit-gnome",
+      "packageName": "polkit-gnome",
+      "source": "repo",
+      "description": "Legacy GTK3 Polkit authentication agent. Extremely simple and universal.",
+      "pros": [
+        "Universal compatibility",
+        "Very lightweight"
+      ],
+      "cons": [
+        "Older GTK3 dialog appearance"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "gtk3",
+        "classic"
+      ],
+      "recommended": false
+    },
+    {
+      "id": "polkit-kde-agent",
+      "name": "polkit-kde-agent",
+      "packageName": "polkit-kde-agent",
+      "source": "repo",
+      "description": "KDE Plasma Polkit agent with modern Breeze theme support.",
+      "pros": [
+        "Polished Qt interface"
+      ],
+      "cons": [
+        "Pulls several KDE framework libraries"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "kde",
+        "qt"
+      ],
+      "recommended": false
+    }
+  ]
+}

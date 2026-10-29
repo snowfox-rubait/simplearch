@@ -1,0 +1,85 @@
+{
+  "id": "documents-notes",
+  "name": "Document & Markdown Editors",
+  "shortDesc": "Knowledge bases, personal wikis, and distraction-free document writers.",
+  "detailedDesc": "Manage project notes, second brains, and technical documentation.",
+  "icon": "FileText",
+  "phase": {
+    "id": "apps",
+    "title": "Daily Apps & Productivity",
+    "description": "Web browsers, terminals, file managers (GUI and TUI), media viewers, notes, and local file sharing.",
+    "order": 5
+  },
+  "order": 6,
+  "selectionType": "multi",
+  "optional": true,
+  "packages": [
+    {
+      "id": "obsidian",
+      "name": "Obsidian (Recommended)",
+      "packageName": "obsidian",
+      "source": "repo",
+      "description": "Powerful, extensible knowledge base and markdown editor on top of a local folder of plain text files.",
+      "pros": [
+        "Local plain-text markdown storage",
+        "Rich plugin & theme ecosystem",
+        "Interactive graph visualization",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Electron application"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "markdown",
+        "notes",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "typora",
+      "name": "Typora",
+      "packageName": "typora",
+      "source": "aur",
+      "description": "Seamless live-preview markdown editor providing a clean, distraction-free writing experience.",
+      "pros": [
+        "True seamless live preview",
+        "Included in OmarchyOS manifest"
+      ],
+      "cons": [
+        "Commercial license"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "markdown",
+        "editor"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "xournalpp",
+      "name": "Xournal++",
+      "packageName": "xournalpp",
+      "source": "repo",
+      "description": "Handwriting note-taking and PDF annotation software with stylus and drawing tablet support.",
+      "pros": [
+        "PDF markup and signing",
+        "Drawing tablet pressure curves",
+        "OmarchyOS default"
+      ],
+      "cons": [
+        "Specialized usecase"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "pdf",
+        "notes"
+      ],
+      "recommended": false,
+      "isOmarchyDefault": true
+    }
+  ]
+}

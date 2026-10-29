@@ -1,0 +1,83 @@
+{
+  "id": "portal",
+  "name": "XDG Desktop Portals",
+  "shortDesc": "Standardized desktop integration interface for screen sharing, file pickers, and sandboxed apps.",
+  "detailedDesc": "Critical for Discord / OBS / browser screen sharing and GTK/Qt file dialogs under Wayland.",
+  "icon": "Network",
+  "phase": {
+    "id": "qol",
+    "title": "Desktop QoL & Ricing Utilities",
+    "description": "The fine-grained ricing details: clipboard managers, color pickers, screenshot annotation, polkit, portals, and fonts.",
+    "order": 3
+  },
+  "order": 6,
+  "selectionType": "multi",
+  "optional": false,
+  "packages": [
+    {
+      "id": "xdg-desktop-portal-hyprland",
+      "name": "xdg-desktop-portal-hyprland (Recommended for Hyprland)",
+      "packageName": "xdg-desktop-portal-hyprland",
+      "source": "repo",
+      "description": "Custom portal backend for Hyprland providing hardware-accelerated screen sharing via PipeWire and window sharing.",
+      "pros": [
+        "High-FPS screen casting",
+        "Window picker interface",
+        "Essential for WebRTC / Discord screen sharing"
+      ],
+      "cons": [
+        "Hyprland-specific"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "portal",
+        "wayland",
+        "screen-sharing",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "xdg-desktop-portal-gtk",
+      "name": "xdg-desktop-portal-gtk (Recommended Companion)",
+      "packageName": "xdg-desktop-portal-gtk",
+      "source": "repo",
+      "description": "Fallback GTK portal for standard file open/save dialogs, app choosers, and notifications.",
+      "pros": [
+        "Clean file chooser dialogs for Flatpak and native apps",
+        "Essential fallback backend"
+      ],
+      "cons": [
+        "None"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "portal",
+        "fallback",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "xdg-desktop-portal-wlr",
+      "name": "xdg-desktop-portal-wlr",
+      "packageName": "xdg-desktop-portal-wlr",
+      "source": "repo",
+      "description": "Generic wlroots portal implementation used by Sway and River compositors.",
+      "pros": [
+        "Standard for Sway/wlroots setups"
+      ],
+      "cons": [
+        "Fewer custom animation/window hooks than hyprland portal"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "wlroots",
+        "sway"
+      ],
+      "recommended": false
+    }
+  ]
+}

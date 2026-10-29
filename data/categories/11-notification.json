@@ -1,0 +1,92 @@
+{
+  "id": "notification",
+  "name": "Notification Daemon & Notification Center",
+  "shortDesc": "Receives D-Bus desktop notifications and presents toasts & slide-out control center.",
+  "detailedDesc": "Implements org.freedesktop.Notifications to alert you of incoming messages, emails, and system events.",
+  "icon": "Bell",
+  "phase": {
+    "id": "shell",
+    "title": "Desktop Shell & Core Plumbings",
+    "description": "Status bars, launchers, notification systems, on-screen displays, and wallpaper managers.",
+    "order": 2
+  },
+  "order": 3,
+  "selectionType": "single",
+  "optional": true,
+  "dependsOn": {
+    "category": "desktop-architecture",
+    "value": "arch-hand-assembled",
+    "condition": "includes"
+  },
+  "packages": [
+    {
+      "id": "swaync",
+      "name": "SwayNC (Sway Notification Center) (Recommended)",
+      "packageName": "swaync",
+      "source": "repo",
+      "description": "Complete notification daemon with a slide-out control center panel featuring quick toggles (DND, Wi-Fi, volume, screenshot).",
+      "pros": [
+        "Slide-out notification panel drawer",
+        "Custom widget toggles (audio, night light, DND)",
+        "GTK3 CSS styling",
+        "Rich media controls"
+      ],
+      "cons": [
+        "Slightly higher RAM usage than minimal toast-only daemons like mako"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "gtk3",
+        "panel",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true,
+      "targetConfigPath": "~/.config/swaync/config.json",
+      "githubUrl": "https://github.com/ErikReider/SwayNotificationCenter"
+    },
+    {
+      "id": "mako",
+      "name": "Mako",
+      "packageName": "mako",
+      "source": "repo",
+      "description": "Lightweight notification daemon for Wayland compositors supporting wlroots and Hyprland.",
+      "pros": [
+        "Ultra-minimalist",
+        "Very fast toast alerts",
+        "Low resource consumption"
+      ],
+      "cons": [
+        "No historical notification center or quick-settings drawer"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "c",
+        "minimalist",
+        "wlroots"
+      ],
+      "recommended": false,
+      "githubUrl": "https://github.com/emersion/mako"
+    },
+    {
+      "id": "dunst",
+      "name": "Dunst",
+      "packageName": "dunst",
+      "source": "repo",
+      "description": "Classic lightweight and highly customizable notification daemon with layer-shell support.",
+      "pros": [
+        "Decades of documented configs",
+        "Keyboard navigable notification history"
+      ],
+      "cons": [
+        "Traditional UI layout; no modern slider panel"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "classic",
+        "lightweight"
+      ],
+      "recommended": false
+    }
+  ]
+}

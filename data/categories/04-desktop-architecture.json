@@ -1,0 +1,65 @@
+{
+  "id": "desktop-architecture",
+  "name": "Desktop Architecture Paradigm",
+  "shortDesc": "Choose between hand-assembling modular daemons or installing an integrated Desktop Environment.",
+  "detailedDesc": "Hand-assembled setups let you pair your own compositor (Hyprland/Sway), bar (Waybar), launcher (Walker/Rofi), and utilities. A full DE bundles everything into one cohesive pre-configured suite.",
+  "icon": "Layers",
+  "phase": {
+    "id": "base",
+    "title": "Base & Architecture",
+    "description": "Core display server protocols, desktop architecture paradigms, and package manager helpers.",
+    "order": 1
+  },
+  "order": 4,
+  "selectionType": "single",
+  "optional": false,
+  "packages": [
+    {
+      "id": "arch-hand-assembled",
+      "name": "Hand-Assembled Modular Stack (Ricing Choice)",
+      "packageName": "hand-assembled",
+      "source": "repo",
+      "description": "Individual selection of compositor, bar, launcher, lockscreen, notification center, and custom QoL tools.",
+      "pros": [
+        "Complete freedom of choice across every single component",
+        "Zero bloat",
+        "Microsecond responsiveness",
+        "Full Unixporn customization"
+      ],
+      "cons": [
+        "Requires individual component selection (guided by SimpleArch)"
+      ],
+      "stabilityScore": 10,
+      "tags": [
+        "modular",
+        "ricing",
+        "recommended"
+      ],
+      "recommended": true,
+      "isOmarchyDefault": true
+    },
+    {
+      "id": "arch-full-de",
+      "name": "Full Desktop Environment (DE)",
+      "packageName": "full-de",
+      "source": "repo",
+      "description": "Integrated desktop suite (KDE Plasma, GNOME, etc.) providing a unified shell, settings panel, and apps.",
+      "pros": [
+        "Everything works out of the box",
+        "Unified settings UI",
+        "No manual plumbing configuration needed"
+      ],
+      "cons": [
+        "Heavier memory footprint",
+        "Opinionated layouts",
+        "Skips manual shell modularity"
+      ],
+      "stabilityScore": 9,
+      "tags": [
+        "monolithic",
+        "integrated"
+      ],
+      "recommended": false
+    }
+  ]
+}
