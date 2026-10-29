@@ -253,3 +253,41 @@ Because a user who just finished `archinstall` has only a bare console (no web b
      ```
 3. **Clipboard Copy:**
    - Instant copy for users already inside a running terminal (e.g., in a VM or SSH session).
+
+---
+
+## 11. Local Virtual Machine Testing Framework (`~/arch-vm/`) & QEMU Troubleshooting
+
+To rigorously test `archinstall` flows and generated bash scripts before running them on physical hardware, a dedicated QEMU virtual environment was established in `~/arch-vm/`:
+
+### Environment Layout:
+* **Directory:** [`~/arch-vm/`](file:///home/test/arch-vm/)
+* **Virtual Disk:** `arch-disk.qcow2` (20 GB dynamic sparse qcow2 image).
+* **Base ISO:** `archlinux-latest.iso` (1.5 GB official Arch Linux ISO, cached locally).
+* **Launch Script:** [`~/arch-vm/start-vm.sh`](file:///home/test/arch-vm/start-vm.sh).
+* **Resource Profile:** 2 vCPUs and 2048 MB RAM (tailored to keep host resources responsive on 4-core, 8GB machines).
+* **Networking:** User-mode NAT with SSH port-forwarding (`localhost:2222 -> guest:22`).
+
+### Technical Discovery: The QEMU Black-Screen Resolution
+During early testing, launching QEMU with UEFI firmware presented an apparent "black screen" or silent boot hang. In-depth tracing revealed the dual root causes:
+1. **Missing Writable NVRAM Flash:** OVMF firmware requires both `OVMF_CODE` and a writable `OVMF_VARS` drive. Running with read-only code without a local variable file caused firmware initialization stalls.
+2. **Legacy IDE Emulation on Default Machine Type:** Defaulting to `pc` (`i440fx`) paired with `-cdrom` emulated a 1990s PIIX4 IDE bus, causing high latency during large `initramfs` decompression (245MB compressed). Furthermore, systemd-boot defaulted to an unrendered 15-second countdown on 1280x800 frames.
+
+**Resolution in `start-vm.sh`:**
+- **Primary / Default Mode (Standard BIOS):** Boots `ISOLINUX` **instantly in <1 second** with zero bootloader stall.
+- **UEFI Mode (`./start-vm.sh --uefi`):** Utilizes `-machine q35` (modern PCIe/AHCI bus) with a local writable NVRAM file (`arch-vars.fd`) and `-vga virtio` display adapter.
+
+---
+
+## 12. Developer Operations & CLI Management
+
+### The `simplearch` Global Runner
+A convenience script exists at [`~/Projects/simplearch/run.sh`](file:///home/test/Projects/simplearch/run.sh) and is symlinked to `~/.local/bin/simplearch` (in `$PATH`):
+- `simplearch`: Checks if port 3000 is listening; if down, starts the Next.js server in the background and launches `omarchy-launch-browser` or `xdg-open`.
+- `simplearch --status`: Prints health status, URL, and PID.
+- `simplearch --stop`: Cleanly terminates the background web server.
+- `simplearch --logs`: Live-tails `.site.log`.
+
+### Note on Container / Host Restarts
+Host restarts and container restarts terminate background processes. When reviving work, running `simplearch` or `npm run dev -- --hostname 0.0.0.0 --port 3000` re-binds the web selector immediately.
+
